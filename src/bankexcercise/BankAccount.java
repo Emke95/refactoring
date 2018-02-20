@@ -26,8 +26,6 @@ public class BankAccount {
 		this(0, "", "", "", "", 0.0, 0.0);
 	}
 	
-	
-	
 	public int getAccountID() {
 		return accountID;
 	}
