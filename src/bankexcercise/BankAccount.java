@@ -1,6 +1,5 @@
 package bankexcercise;
 
-
 public class BankAccount {
 	
 	private int accountID;
