@@ -19,7 +19,9 @@ public class BankApplication extends JFrame {
 	JMenuBar menuBar;
 	JMenu navigateMenu, recordsMenu, transactionsMenu, fileMenu, exitMenu;
 	JMenuItem nextItem, prevItem, firstItem, lastItem, findByAccount, findBySurname, listAll;
-	JMenuItem createItem, modifyItem, deleteItem, setOverdraft, setInterest;
+
+	Map<String, JMenuItem> recMenuItems = new HashMap<String, JMenuItem>();
+
 	JMenuItem deposit, withdraw, calcInterest;
 	JMenuItem open, save, saveAs;
 	JMenuItem closeApp;
@@ -100,17 +102,10 @@ public class BankApplication extends JFrame {
 
 		recordsMenu = new JMenu("Records");
 
-		createItem = new JMenuItem("Create Item");
-		modifyItem = new JMenuItem("Modify Item");
-		deleteItem = new JMenuItem("Delete Item");
-		setOverdraft = new JMenuItem("Set Overdraft");
-		setInterest = new JMenuItem("Set Interest");
+		ArrayList<String> recMenuLabels = new ArrayList<String>(
+				Arrays.asList("Create Item", "Modify Item", "Delete Item", "Set Overdraft", "Set Interest"));
+		setMenuItems(recMenuItems, recordsMenu, recMenuLabels);
 
-		recordsMenu.add(createItem);
-		recordsMenu.add(modifyItem);
-		recordsMenu.add(deleteItem);
-		recordsMenu.add(setOverdraft);
-		recordsMenu.add(setInterest);
 
 		menuBar.add(recordsMenu);
 
@@ -148,7 +143,7 @@ public class BankApplication extends JFrame {
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		setOverdraft.addActionListener(new ActionListener(){
+		recMenuItems.get("Set Overdraft").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(table.get(currentItem).getAccountType().trim().equals("Current")){
 					String newOverdraftStr = JOptionPane.showInputDialog(null, "Enter new Overdraft", JOptionPane.OK_CANCEL_OPTION);
@@ -270,7 +265,7 @@ public class BankApplication extends JFrame {
 		lastItemButton.addActionListener(last);
 		lastItem.addActionListener(last);
 
-		deleteItem.addActionListener(new ActionListener(){
+		recMenuItems.get("Delete Item").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 
 				table.remove(currentItem);
@@ -286,22 +281,22 @@ public class BankApplication extends JFrame {
 			}
 		});
 
-		createItem.addActionListener(new ActionListener(){
+		recMenuItems.get("Create Item").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				new CreateBankDialog(table);		
 			}
 		});
 
 
-		modifyItem.addActionListener(new ActionListener(){
+		recMenuItems.get("Modify Item").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				fields.get("Last Name").setEditable(true);
-								fields.get("First Name").setEditable(true);
+				fields.get("First Name").setEditable(true);
 				openValues = true;
 			}
 		});
 
-		setInterest.addActionListener(new ActionListener(){
+		recMenuItems.get("Set Interest").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 
 				String interestRateStr = JOptionPane.showInputDialog("Enter Interest Rate: (do not type the % sign)");
@@ -393,14 +388,14 @@ public class BankApplication extends JFrame {
 
 					if(sName.equalsIgnoreCase((entry.getValue().getSurname().trim()))){
 						found = true;
-						 fields.get("Account ID").setText(entry.getValue().getAccountID()+"");
-						 						 fields.get("Account Number").setText(entry.getValue().getAccountNumber());
-						 						 fields.get("Last Name").setText(entry.getValue().getSurname());
-						 						 fields.get("First Name").setText(entry.getValue().getFirstName());
-						 						 fields.get("Account Type").setText(entry.getValue().getAccountType());
-						 						 fields.get("Balance").setText(entry.getValue().getBalance()+"");
-						 						 fields.get("Overdraft").setText(entry.getValue().getOverdraft()+"");
-						  					 
+						fields.get("Account ID").setText(entry.getValue().getAccountID()+"");
+						fields.get("Account Number").setText(entry.getValue().getAccountNumber());
+						fields.get("Last Name").setText(entry.getValue().getSurname());
+						fields.get("First Name").setText(entry.getValue().getFirstName());
+						fields.get("Account Type").setText(entry.getValue().getAccountType());
+						fields.get("Balance").setText(entry.getValue().getBalance()+"");
+						fields.get("Overdraft").setText(entry.getValue().getOverdraft()+"");
+
 					}
 				}		
 				if(found)
@@ -420,14 +415,14 @@ public class BankApplication extends JFrame {
 
 					if(accNum.equals(entry.getValue().getAccountNumber().trim())){
 						found = true;
-						 fields.get("Account ID").setText(entry.getValue().getAccountID()+"");
-						 						 fields.get("Account Number").setText(entry.getValue().getAccountNumber());
-						 						 fields.get("Last Name").setText(entry.getValue().getSurname());
-						 						 fields.get("First Name").setText(entry.getValue().getFirstName());
-						 						 fields.get("Account Type").setText(entry.getValue().getAccountType());
-						 						 fields.get("Balance").setText(entry.getValue().getBalance()+"");
-						 						 fields.get("Overdraft").setText(entry.getValue().getOverdraft()+"");						
-						  					
+						fields.get("Account ID").setText(entry.getValue().getAccountID()+"");
+						fields.get("Account Number").setText(entry.getValue().getAccountNumber());
+						fields.get("Last Name").setText(entry.getValue().getSurname());
+						fields.get("First Name").setText(entry.getValue().getFirstName());
+						fields.get("Account Type").setText(entry.getValue().getAccountType());
+						fields.get("Balance").setText(entry.getValue().getBalance()+"");
+						fields.get("Overdraft").setText(entry.getValue().getOverdraft()+"");						
+
 					}			 
 				}
 				if(found)
@@ -506,11 +501,18 @@ public class BankApplication extends JFrame {
 		});		
 	}
 
+	private void setMenuItems(Map<String, JMenuItem> menuMap, JMenu menu, ArrayList<String> menuItems) {
+		menuItems.forEach(item ->{
+			menuMap.put(item, new JMenuItem(item));
+			menu.add(menuMap.get(item));
+		});
+	}
+
 	public void saveOpenValues(){		
 		if (openValues){
 			fields.get("Last Name").setEditable(false);
-						fields.get("First Name").setEditable(false);
-			 			
+			fields.get("First Name").setEditable(false);
+
 			table.get(currentItem).setSurname(fields.get("Last Name").getText());
 			table.get(currentItem).setFirstName(fields.get("First Name").getText());
 		}
@@ -518,17 +520,17 @@ public class BankApplication extends JFrame {
 
 	public void displayDetails(int currentItem) {	
 		fields.get("Account ID").setText(table.get(currentItem).getAccountID()+"");
-				fields.get("Account Number").setText(table.get(currentItem).getAccountNumber());
-				fields.get("Surname").setText(table.get(currentItem).getSurname());
-				fields.get("First Name").setText(table.get(currentItem).getFirstName());
-				fields.get("Account Type").setText(table.get(currentItem).getAccountType());
-				fields.get("Balance").setText(table.get(currentItem).getBalance()+"");
-				if(fields.get("Account Type").getText().trim().equals("Current"))
-					fields.get("Overdraft").setText(table.get(currentItem).getOverdraft()+"");
-		 		
+		fields.get("Account Number").setText(table.get(currentItem).getAccountNumber());
+		fields.get("Surname").setText(table.get(currentItem).getSurname());
+		fields.get("First Name").setText(table.get(currentItem).getFirstName());
+		fields.get("Account Type").setText(table.get(currentItem).getAccountType());
+		fields.get("Balance").setText(table.get(currentItem).getBalance()+"");
+		if(fields.get("Account Type").getText().trim().equals("Current"))
+			fields.get("Overdraft").setText(table.get(currentItem).getOverdraft()+"");
+
 		else
 			fields.get("Overdraft").setText("Only applies to current accs");
-			 	
+
 	}
 
 	private static RandomAccessFile input;
