@@ -1,5 +1,4 @@
 package bankexcercise;
-
 public class BankAccount {
 	
 	private int accountID;
@@ -25,6 +24,8 @@ public class BankAccount {
 	public BankAccount(){
 		this(0, "", "", "", "", 0.0, 0.0);
 	}
+	
+	
 	
 	public int getAccountID() {
 		return accountID;
