@@ -153,6 +153,9 @@ public class BankApplication extends JFrame {
 				if (table.size() ==0) {
 					JOptionPane.showMessageDialog(null, "Empty Set");
 				}
+				else if(table.get(currentItem)==null) {
+					JOptionPane.showMessageDialog(null,"No Account Selected");
+				}
 				else {
 					saveOpenValues();
 
@@ -174,6 +177,9 @@ public class BankApplication extends JFrame {
 
 				if (table.size() ==0) {
 					JOptionPane.showMessageDialog(null, "Empty Set");
+				}
+				else if(table.get(currentItem)==null) {
+					JOptionPane.showMessageDialog(null,"No Account Selected");
 				}
 				else {
 					while(i<TABLE_SIZE){
@@ -206,6 +212,9 @@ public class BankApplication extends JFrame {
 				if (table.size() ==0) {
 					JOptionPane.showMessageDialog(null, "Empty Set");
 				}
+				else if(table.get(currentItem)==null) {
+					JOptionPane.showMessageDialog(null,"No Account Selected");
+				}
 				else {
 					while(i<TABLE_SIZE){
 						i++;
@@ -234,6 +243,9 @@ public class BankApplication extends JFrame {
 
 				if (table.size() ==0) {
 					JOptionPane.showMessageDialog(null, "Empty Set");
+				}
+				else if(table.get(currentItem)==null) {
+					JOptionPane.showMessageDialog(null,"No Account Selected");
 				}
 				else {
 					while(!table.containsKey(currentItem)){
@@ -526,7 +538,7 @@ public class BankApplication extends JFrame {
 		});
 	}
 
-	public void saveOpenValues(){		
+	private void saveOpenValues(){		
 		if (openValues){
 			fields.get("Last Name").setEditable(false);
 			fields.get("First Name").setEditable(false);
