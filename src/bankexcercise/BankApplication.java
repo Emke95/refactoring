@@ -264,17 +264,20 @@ public class BankApplication extends JFrame {
 
 		recMenuItems.get("Delete Item").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-
-				table.remove(currentItem);
-				JOptionPane.showMessageDialog(null, "Account Deleted");
-
-
-				currentItem=0;
-				while(!table.containsKey(currentItem)){
-					currentItem++;
+				if (table.size() ==0) {
+					JOptionPane.showMessageDialog(null, "Empty Set");
 				}
-				displayDetails(currentItem);
+				else {
+					table.remove(currentItem);
+					JOptionPane.showMessageDialog(null, "Account Deleted");
 
+
+					currentItem=0;
+					while(!table.containsKey(currentItem)){
+						currentItem++;
+					}
+					displayDetails(currentItem);
+				}
 			}
 		});
 
@@ -287,9 +290,14 @@ public class BankApplication extends JFrame {
 
 		recMenuItems.get("Modify Item").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				fields.get("Last Name").setEditable(true);
-				fields.get("First Name").setEditable(true);
-				openValues = true;
+				if (table.size() ==0) {
+					JOptionPane.showMessageDialog(null, "Empty Set");
+				}
+				else {
+					fields.get("Last Name").setEditable(true);
+					fields.get("First Name").setEditable(true);
+					openValues = true;
+				}
 			}
 		});
 
