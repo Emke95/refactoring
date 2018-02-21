@@ -116,17 +116,10 @@ public class CreateBankDialog extends JFrame {
 
 				String accountType = comboBox.getSelectedItem().toString();
 
-				String balanceStr = balanceTextField.getText();
-				String overdraftStr = overdraftTextField.getText();
-
-				double balance;
-				double overdraft;
-
-
 				if (accountNumber != null && accountNumber.length()==8 && surname != null && firstName != null && accountType != null) {
 					try {
 
-						boolean idTaken = false;
+						
 						boolean accNumTaken=false;
 
 						int randNumber = rand.nextInt(24) + 1;
@@ -134,8 +127,7 @@ public class CreateBankDialog extends JFrame {
 						for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
 
 							while(randNumber == entry.getValue().getAccountID()){
-								idTaken = true;
-								randNumber = rand.nextInt(24)+1;
+							randNumber = rand.nextInt(24)+1;
 							}		 
 						}
 
