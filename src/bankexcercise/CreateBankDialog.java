@@ -26,9 +26,8 @@ public class CreateBankDialog extends JFrame {
 
 	// Constructor code based on that for the Create and Edit dialog classes in the Shapes exercise.
 
-	private JLabel accountIDLabel, accountNumberLabel, firstNameLabel, surnameLabel, accountTypeLabel, balanceLabel, overdraftLabel;
+	private JLabel accountNumberLabel, firstNameLabel, surnameLabel, accountTypeLabel, balanceLabel, overdraftLabel;
 
-	private JComboBox<String> comboBox;
 	private JTextField accountNumberTextField;
 	private final JTextField firstNameTextField, surnameTextField, accountTypeTextField, balanceTextField, overdraftTextField;
 
