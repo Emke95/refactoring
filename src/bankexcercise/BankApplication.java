@@ -487,7 +487,7 @@ public class BankApplication extends JFrame {
 	public void displayDetails(int currentItem) {	
 		fields.get("Account ID").setText(table.get(currentItem).getAccountID()+"");
 		fields.get("Account Number").setText(table.get(currentItem).getAccountNumber());
-		fields.get("Surname").setText(table.get(currentItem).getSurname());
+		fields.get("Last Name").setText(table.get(currentItem).getSurname());
 		fields.get("First Name").setText(table.get(currentItem).getFirstName());
 		fields.get("Account Type").setText(table.get(currentItem).getAccountType());
 		fields.get("Balance").setText(table.get(currentItem).getBalance()+"");

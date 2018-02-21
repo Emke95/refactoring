@@ -54,6 +54,10 @@ public class BankAccount {
 		this.data.accountType = accountType;
 	}
 	
+	public String getAccType(){
+		return data.accountType;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
