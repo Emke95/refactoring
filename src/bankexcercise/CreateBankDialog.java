@@ -49,25 +49,22 @@ public class CreateBankDialog extends JFrame {
 
 		final JComboBox<String> comboBox = new JComboBox<String>(comboTypes);
 
-		accountNumberLabel = new JLabel("Photograph file name: ");
-		accountNumberTextField = new JTextField(15);
-
 		accountNumberLabel = new JLabel("Account Number: ");
-		accountNumberTextField = new JTextField(15);
+		accountNumberTextField = new JTextField(8);
 		accountNumberTextField.setEditable(true);
 
 		dataPanel.add(accountNumberLabel, "growx, pushx");
 		dataPanel.add(accountNumberTextField, "growx, pushx, wrap");
 
 		surnameLabel = new JLabel("Last Name: ");
-		surnameTextField = new JTextField(15);
+		surnameTextField = new JTextField(20);
 		surnameTextField.setEditable(true);
 
 		dataPanel.add(surnameLabel, "growx, pushx");
 		dataPanel.add(surnameTextField, "growx, pushx, wrap");
 
 		firstNameLabel = new JLabel("First Name: ");
-		firstNameTextField = new JTextField(15);
+		firstNameTextField = new JTextField(20);
 		firstNameTextField.setEditable(true);
 
 		dataPanel.add(firstNameLabel, "growx, pushx");
@@ -117,6 +114,7 @@ public class CreateBankDialog extends JFrame {
 
 				String accountType = comboBox.getSelectedItem().toString();
 
+				
 				if (accountNumber != null && accountNumber.length()==8 && surname != null && firstName != null && accountType != null) {
 					try {
 
