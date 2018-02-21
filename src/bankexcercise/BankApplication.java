@@ -298,7 +298,7 @@ public class BankApplication extends JFrame {
 			}
 		});
 
-		navMenuItems.get("List All").addActionListener(new ActionListener() {
+		navMenuItems.get("List All Records").addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 
 				JFrame frame = new JFrame("TableDemo");
