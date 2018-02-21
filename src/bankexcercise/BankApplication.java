@@ -92,7 +92,6 @@ public class BankApplication extends JFrame {
 						"Last Item", "Find By Account Number", "Find By Surname", "List All Records"));
 		setMenuItems(navMenuItems, navigateMenu, navMenuLabels);
 
-
 		menuBar.add(navigateMenu);
 
 		recordsMenu = new JMenu("Records");
@@ -100,7 +99,6 @@ public class BankApplication extends JFrame {
 		ArrayList<String> recMenuLabels = new ArrayList<String>(
 				Arrays.asList("Create Item", "Modify Item", "Delete Item", "Set Overdraft", "Set Interest"));
 		setMenuItems(recMenuItems, recordsMenu, recMenuLabels);
-
 
 		menuBar.add(recordsMenu);
 
@@ -145,7 +143,6 @@ public class BankApplication extends JFrame {
 					}
 					else
 						JOptionPane.showMessageDialog(null, "Overdraft only applies to Current Accounts");
-
 				}
 			}
 		});
@@ -200,8 +197,6 @@ public class BankApplication extends JFrame {
 			}
 		};
 
-
-
 		ActionListener prev = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -219,12 +214,10 @@ public class BankApplication extends JFrame {
 					}
 
 					int minKey = Collections.min(keyList);
-					//System.out.println(minKey);
 
 					if(currentItem>minKey){
 						currentItem--;
 						while(!table.containsKey(currentItem)){
-							//System.out.println("Current: " + currentItem + ", min key: " + minKey);
 							currentItem--;
 						}
 					}
@@ -309,6 +302,9 @@ public class BankApplication extends JFrame {
 				if (table.size() ==0) {
 					JOptionPane.showMessageDialog(null, "Empty Set");
 				}
+				else if(table.get(currentItem)==null) {
+					JOptionPane.showMessageDialog(null,"No Account Selected");
+				}
 				else {
 					interestRate = Double.parseDouble(JOptionPane.showInputDialog("Enter Interest Rate: (do not type the % sign)"));
 				}
@@ -340,7 +336,6 @@ public class BankApplication extends JFrame {
 				}
 				frame.setSize(600,500);
 				frame.add(scrollPane);
-				//frame.pack();
 				frame.setVisible(true);			
 			}
 		});
