@@ -11,11 +11,11 @@ public class CreateBankDialog extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private final static int TABLE_SIZE = 29;
-	Random rand = new Random();
+	private Random rand = new Random();
 
-	ArrayList<BankAccount> accountList;
+	private ArrayList<BankAccount> accountList;
 
-	HashMap<Integer, BankAccount> table = new HashMap<Integer, BankAccount>();
+	private HashMap<Integer, BankAccount> table = new HashMap<Integer, BankAccount>();
 
 	public void put(int key, BankAccount value){
 		int hash = (key%TABLE_SIZE);
@@ -28,12 +28,11 @@ public class CreateBankDialog extends JFrame {
 
 	// Constructor code based on that for the Create and Edit dialog classes in the Shapes exercise.
 
-	JLabel accountIDLabel, accountNumberLabel, firstNameLabel, surnameLabel, accountTypeLabel, balanceLabel, overdraftLabel;
+	private JLabel accountIDLabel, accountNumberLabel, firstNameLabel, surnameLabel, accountTypeLabel, balanceLabel, overdraftLabel;
 
-
-	JComboBox<String> comboBox;
-	JTextField accountNumberTextField;
-	final JTextField firstNameTextField, surnameTextField, accountTypeTextField, balanceTextField, overdraftTextField;
+	private JComboBox<String> comboBox;
+	private JTextField accountNumberTextField;
+	private final JTextField firstNameTextField, surnameTextField, accountTypeTextField, balanceTextField, overdraftTextField;
 
 	CreateBankDialog(HashMap<Integer, BankAccount> accounts) {
 

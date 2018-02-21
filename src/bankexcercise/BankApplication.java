@@ -19,30 +19,30 @@ public class BankApplication extends JFrame {
 	private static RandomAccessFile output;
 	private FileHelp fileHelp;
 
-	ArrayList<BankAccount> accountList = new ArrayList<BankAccount>();
+	private ArrayList<BankAccount> accountList = new ArrayList<BankAccount>();
 	static HashMap<Integer, BankAccount> table = new HashMap<Integer, BankAccount>();
-	JMenuBar menuBar;
-	JMenu navigateMenu, recordsMenu, transactionsMenu, fileMenu, exitMenu;
+	private JMenuBar menuBar;
+	private JMenu navigateMenu, recordsMenu, transactionsMenu, fileMenu, exitMenu;
 
-	JMenuItem closeApp;
-	JButton firstItemButton, lastItemButton, nextItemButton, prevItemButton;
+	private JMenuItem closeApp;
+	private JButton firstItemButton, lastItemButton, nextItemButton, prevItemButton;
 
-	String gui [] = {"Account ID", "Account Number", "First Name", "Last Name" , "Account Type", "Balance", "Overdraft"};
-	Map<String, JLabel> labels = new HashMap<String, JLabel>();
-	Map<String, JTextField> fields = new HashMap<String, JTextField>();
-	Map<String, JMenuItem> recMenuItems = new HashMap<String, JMenuItem>();
-	Map<String, JMenuItem> navMenuItems = new HashMap<String, JMenuItem>();
-	Map<String, JMenuItem> fileMenuItems = new HashMap<String, JMenuItem>();
-	Map<String, JMenuItem> transMenuItems = new HashMap<String, JMenuItem>();
+	private String gui [] = {"Account ID", "Account Number", "First Name", "Last Name" , "Account Type", "Balance", "Overdraft"};
+	private Map<String, JLabel> labels = new HashMap<String, JLabel>();
+	private Map<String, JTextField> fields = new HashMap<String, JTextField>();
+	private Map<String, JMenuItem> recMenuItems = new HashMap<String, JMenuItem>();
+	private Map<String, JMenuItem> navMenuItems = new HashMap<String, JMenuItem>();
+	private Map<String, JMenuItem> fileMenuItems = new HashMap<String, JMenuItem>();
+	private Map<String, JMenuItem> transMenuItems = new HashMap<String, JMenuItem>();
 
 	static JFileChooser fc;
-	JTable jTable;
-	double interestRate;
+	private JTable jTable;
+	private double interestRate;
 
-	int currentItem = 0;
+	private int currentItem = 0;
 
 
-	boolean openValues;
+	private boolean openValues;
 
 	public BankApplication() {
 
