@@ -213,7 +213,7 @@ public class BankApplication extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				saveOpenValues();
 
-				currentItem =29;
+				currentItem =TABLE_SIZE;
 
 				while(!table.containsKey(currentItem)){
 					currentItem--;
@@ -279,7 +279,7 @@ public class BankApplication extends JFrame {
 			public void actionPerformed(ActionEvent e){
 
 				JFrame frame = new JFrame("TableDemo");
-			
+
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				String col[] = {"ID","Number","Name", "Account Type", "Balance", "Overdraft"};
 
@@ -338,11 +338,6 @@ public class BankApplication extends JFrame {
 				}
 				else if(answer == JOptionPane.NO_OPTION)
 					dispose();
-				else if(answer==0)
-					;
-
-
-
 			}
 		});	
 
@@ -423,7 +418,7 @@ public class BankApplication extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				String accNum = JOptionPane.showInputDialog("Account number to withdraw from: ");
 				String toWithdraw = JOptionPane.showInputDialog("Account found, Enter Amount to Withdraw: ");
-				
+
 				for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
 
 
@@ -510,10 +505,8 @@ public class BankApplication extends JFrame {
 		int returnVal = fc.showOpenDialog(null);
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-	
-		} else {
-		}
 
+		} 
 
 		try // open file
 		{
@@ -708,8 +701,8 @@ public class BankApplication extends JFrame {
 		ba.pack();
 		ba.setVisible(true);
 	}
-	
-	
+
+
 
 
 }
