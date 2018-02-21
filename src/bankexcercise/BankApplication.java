@@ -378,56 +378,64 @@ public class BankApplication extends JFrame {
 
 		navMenuItems.get("Find By Surname").addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
+				if(table.size()==0) {
+					JOptionPane.showMessageDialog(null, "Empty Set");
+				}
+				else {
+					String sName = JOptionPane.showInputDialog("Search for surname: ");
+					boolean found = false;
 
-				String sName = JOptionPane.showInputDialog("Search for surname: ");
-				boolean found = false;
+					for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
 
-				for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
+						if(sName.equalsIgnoreCase((entry.getValue().getSurname().trim()))){
+							found = true;
+							fields.get("Account ID").setText(entry.getValue().getAccountID()+"");
+							fields.get("Account Number").setText(entry.getValue().getAccountNumber());
+							fields.get("Last Name").setText(entry.getValue().getSurname());
+							fields.get("First Name").setText(entry.getValue().getFirstName());
+							fields.get("Account Type").setText(entry.getValue().getAccountType());
+							fields.get("Balance").setText(entry.getValue().getBalance()+"");
+							fields.get("Overdraft").setText(entry.getValue().getOverdraft()+"");
 
-					if(sName.equalsIgnoreCase((entry.getValue().getSurname().trim()))){
-						found = true;
-						fields.get("Account ID").setText(entry.getValue().getAccountID()+"");
-						fields.get("Account Number").setText(entry.getValue().getAccountNumber());
-						fields.get("Last Name").setText(entry.getValue().getSurname());
-						fields.get("First Name").setText(entry.getValue().getFirstName());
-						fields.get("Account Type").setText(entry.getValue().getAccountType());
-						fields.get("Balance").setText(entry.getValue().getBalance()+"");
-						fields.get("Overdraft").setText(entry.getValue().getOverdraft()+"");
-
-					}
-				}		
-				if(found)
-					JOptionPane.showMessageDialog(null, "Surname  " + sName + " found.");
-				else
-					JOptionPane.showMessageDialog(null, "Surname " + sName + " not found.");
+						}
+					}		
+					if(found)
+						JOptionPane.showMessageDialog(null, "Surname  " + sName + " found.");
+					else
+						JOptionPane.showMessageDialog(null, "Surname " + sName + " not found.");
+				}
 			}
 		});
 
 		navMenuItems.get("Find By Account Number").addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-
-				String accNum = JOptionPane.showInputDialog("Search for account number: ");
-				boolean found = false;
-
-				for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
-
-					if(accNum.equals(entry.getValue().getAccountNumber().trim())){
-						found = true;
-						fields.get("Account ID").setText(entry.getValue().getAccountID()+"");
-						fields.get("Account Number").setText(entry.getValue().getAccountNumber());
-						fields.get("Last Name").setText(entry.getValue().getSurname());
-						fields.get("First Name").setText(entry.getValue().getFirstName());
-						fields.get("Account Type").setText(entry.getValue().getAccountType());
-						fields.get("Balance").setText(entry.getValue().getBalance()+"");
-						fields.get("Overdraft").setText(entry.getValue().getOverdraft()+"");						
-
-					}			 
+				if(table.size()==0) {
+					JOptionPane.showMessageDialog(null, "Empty Set");
 				}
-				if(found)
-					JOptionPane.showMessageDialog(null, "Account number " + accNum + " found.");
-				else
-					JOptionPane.showMessageDialog(null, "Account number " + accNum + " not found.");
+				else {
+					String accNum = JOptionPane.showInputDialog("Search for account number: ");
+					boolean found = false;
 
+					for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
+
+						if(accNum.equals(entry.getValue().getAccountNumber().trim())){
+							found = true;
+							fields.get("Account ID").setText(entry.getValue().getAccountID()+"");
+							fields.get("Account Number").setText(entry.getValue().getAccountNumber());
+							fields.get("Last Name").setText(entry.getValue().getSurname());
+							fields.get("First Name").setText(entry.getValue().getFirstName());
+							fields.get("Account Type").setText(entry.getValue().getAccountType());
+							fields.get("Balance").setText(entry.getValue().getBalance()+"");
+							fields.get("Overdraft").setText(entry.getValue().getOverdraft()+"");						
+
+						}			 
+					}
+					if(found)
+						JOptionPane.showMessageDialog(null, "Account number " + accNum + " found.");
+					else
+						JOptionPane.showMessageDialog(null, "Account number " + accNum + " not found.");
+
+				}
 			}
 		});
 

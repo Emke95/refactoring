@@ -16,12 +16,6 @@ public class BankAccount {
 		this.data.overdraft = overdraft;
 	}
 	
-	public BankAccount(){
-		this(0, "", "", "", "", 0.0, 0.0);
-	}
-	
-	
-	
 	public int getAccountID() {
 		return data.accountID;
 	}
