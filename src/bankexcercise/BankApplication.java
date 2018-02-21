@@ -19,7 +19,6 @@ public class BankApplication extends JFrame {
 	JMenuBar menuBar;
 	JMenu navigateMenu, recordsMenu, transactionsMenu, fileMenu, exitMenu;
 
-	JMenuItem deposit, withdraw, calcInterest;
 	JMenuItem closeApp;
 	JButton firstItemButton, lastItemButton, nextItemButton, prevItemButton;
 
@@ -30,7 +29,8 @@ public class BankApplication extends JFrame {
 	Map<String, JMenuItem> recMenuItems = new HashMap<String, JMenuItem>();
 	Map<String, JMenuItem> navMenuItems = new HashMap<String, JMenuItem>();
 	Map<String, JMenuItem> fileMenuItems = new HashMap<String, JMenuItem>();
- 	
+	Map<String, JMenuItem> transMenuItems = new HashMap<String, JMenuItem>();
+
 	static JFileChooser fc;
 	JTable jTable;
 	double interestRate;
@@ -101,21 +101,17 @@ public class BankApplication extends JFrame {
 
 		transactionsMenu = new JMenu("Transactions");
 
-		deposit = new JMenuItem("Deposit");
-		withdraw = new JMenuItem("Withdraw");
-		calcInterest = new JMenuItem("Calculate Interest");
-
-		transactionsMenu.add(deposit);
-		transactionsMenu.add(withdraw);
-		transactionsMenu.add(calcInterest);
+		ArrayList<String> transMenuLabels = new ArrayList<String>(
+				Arrays.asList("Deposit","Withdraw","Calculate Interest"));
+		setMenuItems(transMenuItems, transactionsMenu, transMenuLabels);
 
 		menuBar.add(transactionsMenu);
 
 		fileMenu = new JMenu("File");
 
 		ArrayList<String> fileMenuLabels = new ArrayList<String>(Arrays.asList("Open File", "Save File", "Save As"));
-		    	setMenuItems(fileMenuItems, fileMenu, fileMenuLabels);
-		     	
+		setMenuItems(fileMenuItems, fileMenu, fileMenuLabels);
+
 		menuBar.add(fileMenu);
 
 		exitMenu = new JMenu("Exit");
@@ -324,7 +320,7 @@ public class BankApplication extends JFrame {
 		});
 
 		fileMenuItems.get("Open File").addActionListener(new ActionListener(){
- 			public void actionPerformed(ActionEvent e){
+			public void actionPerformed(ActionEvent e){
 				readFile();
 				currentItem=0;
 				while(!table.containsKey(currentItem)){
@@ -335,13 +331,13 @@ public class BankApplication extends JFrame {
 		});
 
 		fileMenuItems.get("Save File").addActionListener(new ActionListener(){
- 			public void actionPerformed(ActionEvent e){
+			public void actionPerformed(ActionEvent e){
 				writeFile();
 			}
 		});
 
 		fileMenuItems.get("Save As").addActionListener(new ActionListener(){
- 			public void actionPerformed(ActionEvent e){
+			public void actionPerformed(ActionEvent e){
 				saveFileAs();
 			}
 		});
@@ -419,26 +415,25 @@ public class BankApplication extends JFrame {
 			}
 		});
 
-		deposit.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				String accNum = JOptionPane.showInputDialog("Account number to deposit into: ");
-				boolean found = false;
+		transMenuItems.get("Deposit").addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){
+			String accNum = JOptionPane.showInputDialog("Account number to deposit into: ");
+			boolean found = false;
 
-				for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
-					if(accNum.equals(entry.getValue().getAccountNumber().trim())){
-						found = true;
-						String toDeposit = JOptionPane.showInputDialog("Account found, Enter Amount to Deposit: ");
-						entry.getValue().setBalance(entry.getValue().getBalance() + Double.parseDouble(toDeposit));
-						displayDetails(entry.getKey());
-						//balanceTextField.setText(entry.getValue().getBalance()+"");
-					}
+			for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
+				if(accNum.equals(entry.getValue().getAccountNumber().trim())){
+					found = true;
+					String toDeposit = JOptionPane.showInputDialog("Account found, Enter Amount to Deposit: ");
+					entry.getValue().setBalance(entry.getValue().getBalance() + Double.parseDouble(toDeposit));
+					displayDetails(entry.getKey());
+					//balanceTextField.setText(entry.getValue().getBalance()+"");
 				}
-				if (!found)
-					JOptionPane.showMessageDialog(null, "Account number " + accNum + " not found.");
 			}
+			if (!found)
+				JOptionPane.showMessageDialog(null, "Account number " + accNum + " not found.");
+		}
 		});
 
-		withdraw.addActionListener(new ActionListener(){
+		transMenuItems.get("Withdraw").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				String accNum = JOptionPane.showInputDialog("Account number to withdraw from: ");
 				String toWithdraw = JOptionPane.showInputDialog("Account found, Enter Amount to Withdraw: ");
@@ -472,7 +467,7 @@ public class BankApplication extends JFrame {
 			}
 		});
 
-		calcInterest.addActionListener(new ActionListener(){
+		transMenuItems.get("Calculate Interest").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
 					if(entry.getValue().getAccountType().equals("Deposit")){
