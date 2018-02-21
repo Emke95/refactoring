@@ -114,11 +114,22 @@ public class CreateBankDialog extends JFrame {
 
 				String accountType = comboBox.getSelectedItem().toString();
 
-				
-				if (accountNumber != null && accountNumber.length()==8 && surname != null && firstName != null && accountType != null) {
+				if (accountNumber == null) {
+					JOptionPane.showMessageDialog(null, "Ensure Account Number has a value");
+				}else if (accountNumber.length()!=8) {
+					JOptionPane.showMessageDialog(null, "Ensure Account Number is a unique 8 digit number");
+				}else if (surname == null) {
+					JOptionPane.showMessageDialog(null, "Ensure Last Name has a value");
+				}else if (surname.length()>20) {
+					JOptionPane.showMessageDialog(null, "Ensure Last Name is less than 20 characters");
+				}else if (firstName == null) {
+					JOptionPane.showMessageDialog(null, "Ensure First Name has a value");
+				}else if (firstName.length()>20) {
+					JOptionPane.showMessageDialog(null, "Ensure First Name is less than 20 characters");
+				}else if(accountType == null) {
+					JOptionPane.showMessageDialog(null, "Ensure Account Type has a value");
+				}else {
 					try {
-
-						
 						boolean accNumTaken=false;
 
 						int randNumber = rand.nextInt(24) + 1;
@@ -126,7 +137,7 @@ public class CreateBankDialog extends JFrame {
 						for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
 
 							while(randNumber == entry.getValue().getAccountID()){
-							randNumber = rand.nextInt(24)+1;
+								randNumber = rand.nextInt(24)+1;
 							}		 
 						}
 
@@ -139,9 +150,7 @@ public class CreateBankDialog extends JFrame {
 
 						if(!accNumTaken){
 
-
 							BankAccount account = new BankAccount(randNumber, accountNumber, surname, firstName, accountType, 0.0, 0.0);
-
 
 							int key = Integer.parseInt(account.getAccountNumber());
 
@@ -157,11 +166,10 @@ public class CreateBankDialog extends JFrame {
 						}
 					}
 					catch (Exception ex) {
-						JOptionPane.showMessageDialog(null, "Number format exception");					
+						JOptionPane.showMessageDialog(null, "Number format exception");	
 					}
+					dispose();
 				}
-				else JOptionPane.showMessageDialog(null, "Please make sure all fields have values, and Account Number is a unique 8 digit number");
-				dispose();
 			}
 		});
 
