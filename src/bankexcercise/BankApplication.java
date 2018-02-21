@@ -20,7 +20,6 @@ public class BankApplication extends JFrame {
 	JMenu navigateMenu, recordsMenu, transactionsMenu, fileMenu, exitMenu;
 
 	JMenuItem deposit, withdraw, calcInterest;
-	JMenuItem open, save, saveAs;
 	JMenuItem closeApp;
 	JButton firstItemButton, lastItemButton, nextItemButton, prevItemButton;
 
@@ -30,8 +29,8 @@ public class BankApplication extends JFrame {
 	Map<String, JTextField> fields = new HashMap<String, JTextField>();
 	Map<String, JMenuItem> recMenuItems = new HashMap<String, JMenuItem>();
 	Map<String, JMenuItem> navMenuItems = new HashMap<String, JMenuItem>();
-
-
+	Map<String, JMenuItem> fileMenuItems = new HashMap<String, JMenuItem>();
+ 	
 	static JFileChooser fc;
 	JTable jTable;
 	double interestRate;
@@ -114,14 +113,9 @@ public class BankApplication extends JFrame {
 
 		fileMenu = new JMenu("File");
 
-		open = new JMenuItem("Open File");
-		save = new JMenuItem("Save File");
-		saveAs = new JMenuItem("Save As");
-
-		fileMenu.add(open);
-		fileMenu.add(save);
-		fileMenu.add(saveAs);
-
+		ArrayList<String> fileMenuLabels = new ArrayList<String>(Arrays.asList("Open File", "Save File", "Save As"));
+		    	setMenuItems(fileMenuItems, fileMenu, fileMenuLabels);
+		     	
 		menuBar.add(fileMenu);
 
 		exitMenu = new JMenu("Exit");
@@ -329,8 +323,8 @@ public class BankApplication extends JFrame {
 			}
 		});
 
-		open.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+		fileMenuItems.get("Open File").addActionListener(new ActionListener(){
+ 			public void actionPerformed(ActionEvent e){
 				readFile();
 				currentItem=0;
 				while(!table.containsKey(currentItem)){
@@ -340,14 +334,14 @@ public class BankApplication extends JFrame {
 			}
 		});
 
-		save.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+		fileMenuItems.get("Save File").addActionListener(new ActionListener(){
+ 			public void actionPerformed(ActionEvent e){
 				writeFile();
 			}
 		});
 
-		saveAs.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+		fileMenuItems.get("Save As").addActionListener(new ActionListener(){
+ 			public void actionPerformed(ActionEvent e){
 				saveFileAs();
 			}
 		});
