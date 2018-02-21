@@ -1,24 +1,19 @@
 package bankexcercise;
 public class BankAccount {
 	
-	private int accountID;
-	private String accountNumber;
 	private String surname;
 	private String firstName;
-	private String accountType;
-	private double balance;
-	private double overdraft;
-	
+	private BankAccountData data = new BankAccountData();
 	public static int count = 0;
 	
 	public BankAccount(int accountID, String accountNumber, String surname, String firstName, String accountType, double balance, double overdraft){
-		this.accountID = accountID;
-		this.accountNumber = accountNumber;
+		this.data.accountID = accountID;
+		this.data.accountNumber = accountNumber;
 		this.surname = surname;
 		this.firstName = firstName;
-		this.accountType = accountType;
-		this.balance = balance;
-		this.overdraft = overdraft;
+		this.data.accountType = accountType;
+		this.data.balance = balance;
+		this.data.overdraft = overdraft;
 	}
 	
 	public BankAccount(){
@@ -28,19 +23,19 @@ public class BankAccount {
 	
 	
 	public int getAccountID() {
-		return accountID;
+		return data.accountID;
 	}
 	
 	public void setAccountID(int accountID) {
-		this.accountID = accountID;
+		this.data.accountID = accountID;
 	}
 	
 	public String getAccountNumber() {
-		return accountNumber;
+		return data.accountNumber;
 	}
 	
 	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
+		this.data.accountNumber = accountNumber;
 	}
 	
 	public String getSurname() {
@@ -52,15 +47,15 @@ public class BankAccount {
 	}
 	
 	public String getAccountType() {
-		return accountType;
+		return data.accountType;
 	}
 	
 	public void setAccountType(String accountType) {
-		this.accountType = accountType;
+		this.data.accountType = accountType;
 	}
 	
 	public String getAccType(){
-		return accountType;
+		return data.accountType;
 	}
 	
 	public String getFirstName() {
@@ -72,23 +67,23 @@ public class BankAccount {
 	}
 	
 	public double getBalance() {
-		return balance;
+		return data.balance;
 	}
 	
 	public void setBalance(double balance) {
-		this.balance = balance;
+		this.data.balance = balance;
 	}
 	
 	public double getOverdraft() {
-		return overdraft;
+		return data.overdraft;
 	}
 	
 	public void setOverdraft(double overdraft) {
-		this.overdraft = overdraft;
+		this.data.overdraft = overdraft;
 	}
 	
 	public String toString(){
-		return "\nAccount id: " + accountID +  "Account Num: " + accountNumber + "\nName: " + surname + " " + firstName+"\n";
+		return "\nAccount id: " + data.accountID +  "Account Num: " + data.accountNumber + "\nName: " + surname + " " + firstName+"\n";
 	}
 
 }
