@@ -147,7 +147,6 @@ public class BankApplication extends JFrame {
 
 				if (table.size() ==0) {
 					JOptionPane.showMessageDialog(null, "Empty Set");
-
 				}
 				else {
 					saveOpenValues();
@@ -170,7 +169,6 @@ public class BankApplication extends JFrame {
 
 				if (table.size() ==0) {
 					JOptionPane.showMessageDialog(null, "Empty Set");
-
 				}
 				else {
 					while(i<TABLE_SIZE){
@@ -204,7 +202,6 @@ public class BankApplication extends JFrame {
 
 				if (table.size() ==0) {
 					JOptionPane.showMessageDialog(null, "Empty Set");
-
 				}
 				else {
 					while(i<TABLE_SIZE){
@@ -236,7 +233,6 @@ public class BankApplication extends JFrame {
 
 				if (table.size() ==0) {
 					JOptionPane.showMessageDialog(null, "Empty Set");
-
 				}
 				else {
 					while(!table.containsKey(currentItem)){
@@ -421,55 +417,65 @@ public class BankApplication extends JFrame {
 		});
 
 		transMenuItems.get("Deposit").addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){
-			String accNum = JOptionPane.showInputDialog("Account number to deposit into: ");
-			boolean found = false;
-
-			for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
-				if(accNum.equals(entry.getValue().getAccountNumber().trim())){
-					found = true;
-					String toDeposit = JOptionPane.showInputDialog("Account found, Enter Amount to Deposit: ");
-					entry.getValue().setBalance(entry.getValue().getBalance() + Double.parseDouble(toDeposit));
-					displayDetails(entry.getKey());
-					//balanceTextField.setText(entry.getValue().getBalance()+"");
-				}
+			if (table.size() ==0) {
+				JOptionPane.showMessageDialog(null, "No accounts to deposit to");
 			}
-			if (!found)
-				JOptionPane.showMessageDialog(null, "Account number " + accNum + " not found.");
+			else {
+				String accNum = JOptionPane.showInputDialog("Account number to deposit into: ");
+				boolean found = false;
+
+				for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
+					if(accNum.equals(entry.getValue().getAccountNumber().trim())){
+						found = true;
+						String toDeposit = JOptionPane.showInputDialog("Account found, Enter Amount to Deposit: ");
+						entry.getValue().setBalance(entry.getValue().getBalance() + Double.parseDouble(toDeposit));
+						displayDetails(entry.getKey());
+						//balanceTextField.setText(entry.getValue().getBalance()+"");
+					}
+				}
+				if (!found)
+					JOptionPane.showMessageDialog(null, "Account number " + accNum + " not found.");
+			}
 		}
 		});
 
 		transMenuItems.get("Withdraw").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				String accNum = JOptionPane.showInputDialog("Account number to withdraw from: ");
-				//String toWithdraw = JOptionPane.showInputDialog("Account found, Enter Amount to Withdraw: ");
-				boolean found = false;
-
-				for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
-
-
-					if(accNum.equals(entry.getValue().getAccountNumber().trim())){
-						String toWithdraw = JOptionPane.showInputDialog("Account found, Enter Amount to Withdraw: ");
-						found = true;
-						if(entry.getValue().getAccountType().trim().equals("Current")){
-							if(Double.parseDouble(toWithdraw) > entry.getValue().getBalance() + entry.getValue().getOverdraft())
-								JOptionPane.showMessageDialog(null, "Transaction exceeds overdraft limit");
-							else{
-								entry.getValue().setBalance(entry.getValue().getBalance() - Double.parseDouble(toWithdraw));
-								displayDetails(entry.getKey());
-							}
-						}
-						else if(entry.getValue().getAccountType().trim().equals("Deposit")){
-							if(Double.parseDouble(toWithdraw) <= entry.getValue().getBalance()){
-								entry.getValue().setBalance(entry.getValue().getBalance()-Double.parseDouble(toWithdraw));
-								displayDetails(entry.getKey());
-							}
-							else
-								JOptionPane.showMessageDialog(null, "Insufficient funds.");
-						}
-					}					
+				if (table.size() ==0) {
+					JOptionPane.showMessageDialog(null, "No accounts to from");
 				}
-				if (!found)
-					JOptionPane.showMessageDialog(null, "Account number " + accNum + " not found.");
+				else {
+					String accNum = JOptionPane.showInputDialog("Account number to withdraw from: ");
+					//String toWithdraw = JOptionPane.showInputDialog("Account found, Enter Amount to Withdraw: ");
+					boolean found = false;
+
+					for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
+
+
+						if(accNum.equals(entry.getValue().getAccountNumber().trim())){
+							String toWithdraw = JOptionPane.showInputDialog("Account found, Enter Amount to Withdraw: ");
+							found = true;
+							if(entry.getValue().getAccountType().trim().equals("Current")){
+								if(Double.parseDouble(toWithdraw) > entry.getValue().getBalance() + entry.getValue().getOverdraft())
+									JOptionPane.showMessageDialog(null, "Transaction exceeds overdraft limit");
+								else{
+									entry.getValue().setBalance(entry.getValue().getBalance() - Double.parseDouble(toWithdraw));
+									displayDetails(entry.getKey());
+								}
+							}
+							else if(entry.getValue().getAccountType().trim().equals("Deposit")){
+								if(Double.parseDouble(toWithdraw) <= entry.getValue().getBalance()){
+									entry.getValue().setBalance(entry.getValue().getBalance()-Double.parseDouble(toWithdraw));
+									displayDetails(entry.getKey());
+								}
+								else
+									JOptionPane.showMessageDialog(null, "Insufficient funds.");
+							}
+						}					
+					}
+					if (!found)
+						JOptionPane.showMessageDialog(null, "Account number " + accNum + " not found.");
+				}
 			}
 		});
 
@@ -484,6 +490,7 @@ public class BankApplication extends JFrame {
 						displayDetails(entry.getKey());
 					}
 				}
+
 			}
 		});		
 	}
