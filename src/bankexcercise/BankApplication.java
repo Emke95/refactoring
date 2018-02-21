@@ -145,13 +145,20 @@ public class BankApplication extends JFrame {
 		ActionListener first = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				saveOpenValues();
+				if (table.size() ==0) {
+					JOptionPane.showMessageDialog(null, "Empty Set");
 
-				currentItem=0;
-				while(!table.containsKey(currentItem)){
-					currentItem++;
 				}
-				displayDetails(currentItem);
+				else {
+					saveOpenValues();
+
+					currentItem=0;
+					while(!table.containsKey(currentItem)){
+						currentItem++;
+					}
+					displayDetails(currentItem);
+
+				}
 			}
 		};
 
@@ -161,23 +168,29 @@ public class BankApplication extends JFrame {
 				ArrayList<Integer> keyList = new ArrayList<Integer>();
 				int i=0;
 
-				while(i<TABLE_SIZE){
-					i++;
-					if(table.containsKey(i))
-						keyList.add(i);
+				if (table.size() ==0) {
+					JOptionPane.showMessageDialog(null, "Empty Set");
+
 				}
-
-				int maxKey = Collections.max(keyList);
-
-				saveOpenValues();	
-
-				if(currentItem<maxKey){
-					currentItem++;
-					while(!table.containsKey(currentItem)){
-						currentItem++;
+				else {
+					while(i<TABLE_SIZE){
+						i++;
+						if(table.containsKey(i))
+							keyList.add(i);
 					}
+
+					int maxKey = Collections.max(keyList);
+
+					saveOpenValues();	
+
+					if(currentItem<maxKey){
+						currentItem++;
+						while(!table.containsKey(currentItem)){
+							currentItem++;
+						}
+					}
+					displayDetails(currentItem);			
 				}
-				displayDetails(currentItem);			
 			}
 		};
 
@@ -189,23 +202,29 @@ public class BankApplication extends JFrame {
 				ArrayList<Integer> keyList = new ArrayList<Integer>();
 				int i=0;
 
-				while(i<TABLE_SIZE){
-					i++;
-					if(table.containsKey(i))
-						keyList.add(i);
+				if (table.size() ==0) {
+					JOptionPane.showMessageDialog(null, "Empty Set");
+
 				}
-
-				int minKey = Collections.min(keyList);
-				//System.out.println(minKey);
-
-				if(currentItem>minKey){
-					currentItem--;
-					while(!table.containsKey(currentItem)){
-						//System.out.println("Current: " + currentItem + ", min key: " + minKey);
-						currentItem--;
+				else {
+					while(i<TABLE_SIZE){
+						i++;
+						if(table.containsKey(i))
+							keyList.add(i);
 					}
+
+					int minKey = Collections.min(keyList);
+					//System.out.println(minKey);
+
+					if(currentItem>minKey){
+						currentItem--;
+						while(!table.containsKey(currentItem)){
+							//System.out.println("Current: " + currentItem + ", min key: " + minKey);
+							currentItem--;
+						}
+					}
+					displayDetails(currentItem);				
 				}
-				displayDetails(currentItem);				
 			}
 		};
 
@@ -215,12 +234,18 @@ public class BankApplication extends JFrame {
 
 				currentItem =TABLE_SIZE;
 
-				while(!table.containsKey(currentItem)){
-					currentItem--;
+				if (table.size() ==0) {
+					JOptionPane.showMessageDialog(null, "Empty Set");
 
 				}
+				else {
+					while(!table.containsKey(currentItem)){
+						currentItem--;
 
-				displayDetails(currentItem);
+					}
+
+					displayDetails(currentItem);
+				}
 			}
 		};
 
