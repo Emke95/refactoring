@@ -44,7 +44,6 @@ public class BankApplication extends JFrame {
 
 		super("Bank Application");
 
-		int currentItem;
 		initComponents();
 	}
 
@@ -54,7 +53,14 @@ public class BankApplication extends JFrame {
 
 		for (String str: gui) {
 			labels.put(str, new JLabel(str + ": "));
-			fields.put(str, new JTextField(15));
+			if(str.equals("First Name") || str.equals("Last Name")) {
+				fields.put(str, new JTextField(20));
+			} else if (str.equals("Account Number")) {
+				fields.put(str, new JTextField(8));
+			}
+			else {
+				fields.put(str, new JTextField(15));
+			}
 			fields.get(str).setEditable(false);
 
 			displayPanel.add(labels.get(str), "growx, pushx");
