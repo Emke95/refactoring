@@ -24,7 +24,6 @@ public class BankApplication extends JFrame {
 	private JMenu navigateMenu, recordsMenu, transactionsMenu, fileMenu, exitMenu;
 
 	private JMenuItem closeApp;
-	private JButton firstItemButton, lastItemButton, nextItemButton, prevItemButton;
 
 	private String gui [] = {"Account ID", "Account Number", "First Name", "Last Name" , "Account Type", "Balance", "Overdraft"};
 	private Map<String, JLabel> labels = new HashMap<String, JLabel>();
@@ -34,12 +33,14 @@ public class BankApplication extends JFrame {
 	private Map<String, JMenuItem> fileMenuItems = new HashMap<String, JMenuItem>();
 	private Map<String, JMenuItem> transMenuItems = new HashMap<String, JMenuItem>();
 
+	private String[] pics = {"first.png", "prev.png", "next.png", "last.png" };
+	private JButton[] itemButtons = new JButton[pics.length];
+
 	static JFileChooser fc;
 	private JTable jTable;
 	private double interestRate;
 
 	private int currentItem = 0;
-
 
 	private boolean openValues;
 
@@ -74,15 +75,10 @@ public class BankApplication extends JFrame {
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 4));
 
-		nextItemButton = new JButton(new ImageIcon("next.png"));
-		prevItemButton = new JButton(new ImageIcon("prev.png"));
-		firstItemButton = new JButton(new ImageIcon("first.png"));
-		lastItemButton = new JButton(new ImageIcon("last.png"));
-
-		buttonPanel.add(firstItemButton);
-		buttonPanel.add(prevItemButton);
-		buttonPanel.add(nextItemButton);
-		buttonPanel.add(lastItemButton);
+		for(int i=0;i< pics.length; i++) {
+			itemButtons[i] = new JButton(new ImageIcon(pics[i]));
+			buttonPanel.add(itemButtons[i]);
+		}
 
 		add(buttonPanel, BorderLayout.SOUTH);
 
@@ -228,17 +224,16 @@ public class BankApplication extends JFrame {
 			}
 		};
 
-		nextItemButton.addActionListener(next);
+		itemButtons[2].addActionListener(next);
 		navMenuItems.get("Next Item").addActionListener(next);
 
-		prevItemButton.addActionListener(prev);
+		itemButtons[1].addActionListener(prev);
 		navMenuItems.get("Previous Item").addActionListener(prev);
 
-		firstItemButton.addActionListener(first);
+		itemButtons[0].addActionListener(first);
 		navMenuItems.get("First Item").addActionListener(first);
 
-
-		lastItemButton.addActionListener(last);
+		itemButtons[3].addActionListener(last);
 		navMenuItems.get("Last Item").addActionListener(last);
 
 		recMenuItems.get("Delete Item").addActionListener(new ActionListener(){
@@ -513,8 +508,5 @@ public class BankApplication extends JFrame {
 		ba.pack();
 		ba.setVisible(true);
 	}
-
-
-
 
 }
