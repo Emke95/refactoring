@@ -131,14 +131,19 @@ public class BankApplication extends JFrame {
 
 		recMenuItems.get("Set Overdraft").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if(table.get(currentItem).getAccountType().trim().equals("Current")){
-					String newOverdraftStr = JOptionPane.showInputDialog(null, "Enter new Overdraft", JOptionPane.OK_CANCEL_OPTION);
-					fields.get("Overdraft").setText(newOverdraftStr);
-					table.get(currentItem).setOverdraft(Double.parseDouble(newOverdraftStr));
+				if(table.size() ==0) {
+					JOptionPane.showMessageDialog(null, "Empty Set");
 				}
-				else
-					JOptionPane.showMessageDialog(null, "Overdraft only applies to Current Accounts");
+				else {
+					if(table.get(currentItem).getAccountType().trim().equals("Current")){
+						String newOverdraftStr = JOptionPane.showInputDialog(null, "Enter new Overdraft", JOptionPane.OK_CANCEL_OPTION);
+						fields.get("Overdraft").setText(newOverdraftStr);
+						table.get(currentItem).setOverdraft(Double.parseDouble(newOverdraftStr));
+					}
+					else
+						JOptionPane.showMessageDialog(null, "Overdraft only applies to Current Accounts");
 
+				}
 			}
 		});
 
@@ -290,8 +295,12 @@ public class BankApplication extends JFrame {
 
 		recMenuItems.get("Set Interest").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-
-				interestRate = Double.parseDouble(JOptionPane.showInputDialog("Enter Interest Rate: (do not type the % sign)"));
+				if (table.size() ==0) {
+					JOptionPane.showMessageDialog(null, "Empty Set");
+				}
+				else {
+					interestRate = Double.parseDouble(JOptionPane.showInputDialog("Enter Interest Rate: (do not type the % sign)"));
+				}
 			}
 		});
 
@@ -442,7 +451,7 @@ public class BankApplication extends JFrame {
 		transMenuItems.get("Withdraw").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if (table.size() ==0) {
-					JOptionPane.showMessageDialog(null, "No accounts to from");
+					JOptionPane.showMessageDialog(null, "No accounts to withdraw from");
 				}
 				else {
 					String accNum = JOptionPane.showInputDialog("Account number to withdraw from: ");
@@ -488,6 +497,7 @@ public class BankApplication extends JFrame {
 						//System.out.println(equation);
 						JOptionPane.showMessageDialog(null, "Balances Updated");
 						displayDetails(entry.getKey());
+
 					}
 				}
 
