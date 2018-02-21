@@ -19,7 +19,6 @@ public class BankApplication extends JFrame {
 	private static RandomAccessFile output;
 	private FileHelp fileHelp;
 
-	private ArrayList<BankAccount> accountList = new ArrayList<BankAccount>();
 	static HashMap<Integer, BankAccount> table = new HashMap<Integer, BankAccount>();
 	private JMenuBar menuBar;
 	private JMenu navigateMenu, recordsMenu, transactionsMenu, fileMenu, exitMenu;
