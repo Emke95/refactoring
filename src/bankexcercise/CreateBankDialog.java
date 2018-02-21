@@ -108,10 +108,8 @@ public class CreateBankDialog extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				String accountNumber = accountNumberTextField.getText();
-
 				String surname = surnameTextField.getText();
 				String firstName = firstNameTextField.getText();
-
 				String accountType = comboBox.getSelectedItem().toString();
 
 				if (accountNumber == null) {
@@ -144,7 +142,6 @@ public class CreateBankDialog extends JFrame {
 						for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {					
 							if(entry.getValue().getAccountNumber().trim().equals(accountNumberTextField.getText())){
 								accNumTaken=true;	
-
 							}
 						}
 

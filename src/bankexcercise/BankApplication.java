@@ -271,10 +271,7 @@ public class BankApplication extends JFrame {
 		recMenuItems.get("Set Interest").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 
-				String interestRateStr = JOptionPane.showInputDialog("Enter Interest Rate: (do not type the % sign)");
-				if(interestRateStr!=null)
-					interestRate = Double.parseDouble(interestRateStr);
-
+				interestRate = Double.parseDouble(JOptionPane.showInputDialog("Enter Interest Rate: (do not type the % sign)"));
 			}
 		});
 
