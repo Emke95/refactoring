@@ -134,6 +134,9 @@ public class BankApplication extends JFrame {
 				if(table.size() ==0) {
 					JOptionPane.showMessageDialog(null, "Empty Set");
 				}
+				else if(table.get(currentItem)==null) {
+					JOptionPane.showMessageDialog(null,"No Account Selected");
+				}
 				else {
 					if(table.get(currentItem).getAccountType().trim().equals("Current")){
 						String newOverdraftStr = JOptionPane.showInputDialog(null, "Enter new Overdraft", JOptionPane.OK_CANCEL_OPTION);
