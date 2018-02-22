@@ -66,6 +66,89 @@ public class BankApplication extends JFrame {
 		addActionListeners();
 
 	}
+
+	private void createMenus() {
+		menuBar =  new JMenuBar();
+		setJMenuBar(menuBar);
+
+		navigateMenu = new JMenu("Navigate");
+
+		ArrayList<String> navMenuLabels = new ArrayList<String>(
+				Arrays.asList("Next Item", "Previous Item", "First Item",
+						"Last Item", "Find By Account Number", "Find By Surname", "List All Records"));
+		setMenuItems(navMenuItems, navigateMenu, navMenuLabels);
+
+		menuBar.add(navigateMenu);
+
+		recordsMenu = new JMenu("Records");
+
+		ArrayList<String> recMenuLabels = new ArrayList<String>(
+				Arrays.asList("Create Item", "Modify Item", "Delete Item", "Set Overdraft", "Set Interest"));
+		setMenuItems(recMenuItems, recordsMenu, recMenuLabels);
+
+		menuBar.add(recordsMenu);
+
+		transactionsMenu = new JMenu("Transactions");
+
+		ArrayList<String> transMenuLabels = new ArrayList<String>(
+				Arrays.asList("Deposit","Withdraw","Calculate Interest"));
+		setMenuItems(transMenuItems, transactionsMenu, transMenuLabels);
+
+		menuBar.add(transactionsMenu);
+
+		fileMenu = new JMenu("File");
+
+		ArrayList<String> fileMenuLabels = new ArrayList<String>(Arrays.asList("Open File", "Save File", "Save As"));
+		setMenuItems(fileMenuItems, fileMenu, fileMenuLabels);
+
+		menuBar.add(fileMenu);
+
+		exitMenu = new JMenu("Exit");
+
+		closeApp = new JMenuItem("Close Application");
+
+		exitMenu.add(closeApp);
+
+		menuBar.add(exitMenu);
+
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+	}
+
+	private void createLabelsAndTextFields() {
+		JPanel displayPanel = new JPanel(new MigLayout());
+
+		for (String str: gui) {
+			labels.put(str, new JLabel(str + ": "));
+			if(str.equals("First Name") || str.equals("Last Name")) {
+				fields.put(str, new JTextField(20));
+			} else if (str.equals("Account Number")) {
+				fields.put(str, new JTextField(8));
+			}
+			else {
+				fields.put(str, new JTextField(15));
+			}
+			fields.get(str).setEditable(false);
+
+			displayPanel.add(labels.get(str), "growx, pushx");
+			displayPanel.add(fields.get(str), "growx, pushx, wrap");
+		}
+
+		add(displayPanel, BorderLayout.CENTER);
+
+	}
+
+	private void createButtons() {
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 4));
+
+		for(int i=0;i< pics.length; i++) {
+			itemButtons[i] = new JButton(new ImageIcon(pics[i]));
+			buttonPanel.add(itemButtons[i]);
+		}
+
+		add(buttonPanel, BorderLayout.SOUTH);
+	}
+
 	private void addActionListeners() {
 		recMenuItems.get("Create Item").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -399,93 +482,12 @@ public class BankApplication extends JFrame {
 		navMenuItems.get("Last Item").addActionListener(last);
 	}
 
-	private void createButtons() {
-		JPanel buttonPanel = new JPanel(new GridLayout(1, 4));
-
-		for(int i=0;i< pics.length; i++) {
-			itemButtons[i] = new JButton(new ImageIcon(pics[i]));
-			buttonPanel.add(itemButtons[i]);
-		}
-
-		add(buttonPanel, BorderLayout.SOUTH);
-	}
-
-	private void createLabelsAndTextFields() {
-		JPanel displayPanel = new JPanel(new MigLayout());
-
-		for (String str: gui) {
-			labels.put(str, new JLabel(str + ": "));
-			if(str.equals("First Name") || str.equals("Last Name")) {
-				fields.put(str, new JTextField(20));
-			} else if (str.equals("Account Number")) {
-				fields.put(str, new JTextField(8));
-			}
-			else {
-				fields.put(str, new JTextField(15));
-			}
-			fields.get(str).setEditable(false);
-
-			displayPanel.add(labels.get(str), "growx, pushx");
-			displayPanel.add(fields.get(str), "growx, pushx, wrap");
-		}
-
-		add(displayPanel, BorderLayout.CENTER);
-
-	}
-
 	private void displayCurrentItem() {
 		currentItem=0;
 		while(!table.containsKey(currentItem)){
 			currentItem++;
 		}
 		displayDetails(currentItem);
-	}
-	private void createMenus() {
-		menuBar =  new JMenuBar();
-		setJMenuBar(menuBar);
-
-		navigateMenu = new JMenu("Navigate");
-
-		ArrayList<String> navMenuLabels = new ArrayList<String>(
-				Arrays.asList("Next Item", "Previous Item", "First Item",
-						"Last Item", "Find By Account Number", "Find By Surname", "List All Records"));
-		setMenuItems(navMenuItems, navigateMenu, navMenuLabels);
-
-		menuBar.add(navigateMenu);
-
-		recordsMenu = new JMenu("Records");
-
-		ArrayList<String> recMenuLabels = new ArrayList<String>(
-				Arrays.asList("Create Item", "Modify Item", "Delete Item", "Set Overdraft", "Set Interest"));
-		setMenuItems(recMenuItems, recordsMenu, recMenuLabels);
-
-		menuBar.add(recordsMenu);
-
-		transactionsMenu = new JMenu("Transactions");
-
-		ArrayList<String> transMenuLabels = new ArrayList<String>(
-				Arrays.asList("Deposit","Withdraw","Calculate Interest"));
-		setMenuItems(transMenuItems, transactionsMenu, transMenuLabels);
-
-		menuBar.add(transactionsMenu);
-
-		fileMenu = new JMenu("File");
-
-		ArrayList<String> fileMenuLabels = new ArrayList<String>(Arrays.asList("Open File", "Save File", "Save As"));
-		setMenuItems(fileMenuItems, fileMenu, fileMenuLabels);
-
-		menuBar.add(fileMenu);
-
-		exitMenu = new JMenu("Exit");
-
-		closeApp = new JMenuItem("Close Application");
-
-		exitMenu.add(closeApp);
-
-		menuBar.add(exitMenu);
-
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
 	}
 
 	private void AccountCheck(ActionEvent e) {
