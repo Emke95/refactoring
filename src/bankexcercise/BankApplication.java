@@ -61,15 +61,7 @@ public class BankApplication extends JFrame {
 		setLayout(new BorderLayout());
 		createMenus();
 		createLabelsAndTextFields();
-	
-		JPanel buttonPanel = new JPanel(new GridLayout(1, 4));
-
-		for(int i=0;i< pics.length; i++) {
-			itemButtons[i] = new JButton(new ImageIcon(pics[i]));
-			buttonPanel.add(itemButtons[i]);
-		}
-
-		add(buttonPanel, BorderLayout.SOUTH);
+		createButtons();
 
 		recMenuItems.get("Create Item").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -417,6 +409,17 @@ public class BankApplication extends JFrame {
 			}
 		});	
 	}
+	private void createButtons() {
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 4));
+
+		for(int i=0;i< pics.length; i++) {
+			itemButtons[i] = new JButton(new ImageIcon(pics[i]));
+			buttonPanel.add(itemButtons[i]);
+		}
+
+		add(buttonPanel, BorderLayout.SOUTH);
+	}
+
 	private void createLabelsAndTextFields() {
 		JPanel displayPanel = new JPanel(new MigLayout());
 		
