@@ -57,11 +57,12 @@ public class BankApplication extends JFrame {
 	}
 
 	public void initComponents() {
-		
+
 		setLayout(new BorderLayout());
 		createMenus();
 		createLabelsAndTextFields();
 		createButtons();
+		addActionListeners();
 
 		recMenuItems.get("Create Item").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -317,6 +318,22 @@ public class BankApplication extends JFrame {
 			}
 		});
 
+
+
+		closeApp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				int answer = JOptionPane.showConfirmDialog(BankApplication.this, "Do you want to save before quitting?");
+				if (answer == JOptionPane.YES_OPTION) {
+					fileHelp.saveFileAs(table,fc);
+					dispose();
+				}
+				else if(answer == JOptionPane.NO_OPTION)
+					dispose();
+			}
+		});	
+	}
+	private void addActionListeners() {
 		ActionListener first = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AccountCheck(e);	
@@ -395,20 +412,8 @@ public class BankApplication extends JFrame {
 
 		itemButtons[3].addActionListener(last);
 		navMenuItems.get("Last Item").addActionListener(last);
-
-		closeApp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				int answer = JOptionPane.showConfirmDialog(BankApplication.this, "Do you want to save before quitting?");
-				if (answer == JOptionPane.YES_OPTION) {
-					fileHelp.saveFileAs(table,fc);
-					dispose();
-				}
-				else if(answer == JOptionPane.NO_OPTION)
-					dispose();
-			}
-		});	
 	}
+
 	private void createButtons() {
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 4));
 
@@ -422,7 +427,7 @@ public class BankApplication extends JFrame {
 
 	private void createLabelsAndTextFields() {
 		JPanel displayPanel = new JPanel(new MigLayout());
-		
+
 		for (String str: gui) {
 			labels.put(str, new JLabel(str + ": "));
 			if(str.equals("First Name") || str.equals("Last Name")) {
