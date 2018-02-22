@@ -30,6 +30,7 @@ public class BankApplication extends JFrame {
 	private JMenuItem closeApp;
 
 	private String gui [] = {"Account ID", "Account Number", "First Name", "Last Name" , "Account Type", "Balance", "Overdraft"};
+	Map<String, JMenu> menuBarItems = new HashMap<String, JMenu>();
 	private Map<String, JLabel> labels = new HashMap<String, JLabel>();
 	private Map<String, JTextField> fields = new HashMap<String, JTextField>();
 	private Map<String, JMenuItem> recMenuItems = new HashMap<String, JMenuItem>();
@@ -56,28 +57,11 @@ public class BankApplication extends JFrame {
 	}
 
 	public void initComponents() {
+		
 		setLayout(new BorderLayout());
-		JPanel displayPanel = new JPanel(new MigLayout());
 		createMenus();
-
-		for (String str: gui) {
-			labels.put(str, new JLabel(str + ": "));
-			if(str.equals("First Name") || str.equals("Last Name")) {
-				fields.put(str, new JTextField(20));
-			} else if (str.equals("Account Number")) {
-				fields.put(str, new JTextField(8));
-			}
-			else {
-				fields.put(str, new JTextField(15));
-			}
-			fields.get(str).setEditable(false);
-
-			displayPanel.add(labels.get(str), "growx, pushx");
-			displayPanel.add(fields.get(str), "growx, pushx, wrap");
-		}
-
-		add(displayPanel, BorderLayout.CENTER);
-
+		createLabelsAndTextFields();
+	
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 4));
 
 		for(int i=0;i< pics.length; i++) {
@@ -433,6 +417,29 @@ public class BankApplication extends JFrame {
 			}
 		});	
 	}
+	private void createLabelsAndTextFields() {
+		JPanel displayPanel = new JPanel(new MigLayout());
+		
+		for (String str: gui) {
+			labels.put(str, new JLabel(str + ": "));
+			if(str.equals("First Name") || str.equals("Last Name")) {
+				fields.put(str, new JTextField(20));
+			} else if (str.equals("Account Number")) {
+				fields.put(str, new JTextField(8));
+			}
+			else {
+				fields.put(str, new JTextField(15));
+			}
+			fields.get(str).setEditable(false);
+
+			displayPanel.add(labels.get(str), "growx, pushx");
+			displayPanel.add(fields.get(str), "growx, pushx, wrap");
+		}
+
+		add(displayPanel, BorderLayout.CENTER);
+
+	}
+
 	private void displayCurrentItem() {
 		currentItem=0;
 		while(!table.containsKey(currentItem)){
