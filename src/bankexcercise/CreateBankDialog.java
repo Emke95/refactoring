@@ -17,7 +17,15 @@ public class CreateBankDialog extends JFrame {
 	private JLabel accountNumberLabel, firstNameLabel, surnameLabel, accountTypeLabel, balanceLabel, overdraftLabel;
 
 	private JTextField accountNumberTextField;
-	private final JTextField firstNameTextField, surnameTextField, accountTypeTextField, balanceTextField, overdraftTextField;
+	private JTextField firstNameTextField;
+
+	private JTextField surnameTextField;
+
+	private JTextField accountTypeTextField;
+
+	private JTextField balanceTextField;
+
+	private JTextField overdraftTextField;
 	private JButton addButton, cancelButton;
 	private JPanel dataPanel = new JPanel(new MigLayout());
 
@@ -32,54 +40,11 @@ public class CreateBankDialog extends JFrame {
 		String[] comboTypes = {"Current", "Deposit"};
 		JComboBox<String> comboBox = new JComboBox<String>(comboTypes);
 
-		accountNumberLabel = new JLabel("Account Number: ");
-		accountNumberTextField = new JTextField(8);
-		accountNumberTextField.setEditable(true);
-
-		dataPanel.add(accountNumberLabel, "growx, pushx");
-		dataPanel.add(accountNumberTextField, "growx, pushx, wrap");
-
-		surnameLabel = new JLabel("Last Name: ");
-		surnameTextField = new JTextField(20);
-		surnameTextField.setEditable(true);
-
-		dataPanel.add(surnameLabel, "growx, pushx");
-		dataPanel.add(surnameTextField, "growx, pushx, wrap");
-
-		firstNameLabel = new JLabel("First Name: ");
-		firstNameTextField = new JTextField(20);
-		firstNameTextField.setEditable(true);
-
-		dataPanel.add(firstNameLabel, "growx, pushx");
-		dataPanel.add(firstNameTextField, "growx, pushx, wrap");
-
-		accountTypeLabel = new JLabel("Account Type: ");
-		accountTypeTextField = new JTextField(5);
-		accountTypeTextField.setEditable(true);
-
-		dataPanel.add(accountTypeLabel, "growx, pushx");	
-		dataPanel.add(comboBox, "growx, pushx, wrap");
-
-		balanceLabel = new JLabel("Balance: ");
-		balanceTextField = new JTextField(10);
-		balanceTextField.setText("0.0");
-		balanceTextField.setEditable(false);
-
-		dataPanel.add(balanceLabel, "growx, pushx");
-		dataPanel.add(balanceTextField, "growx, pushx, wrap");
-
-		overdraftLabel = new JLabel("Overdraft: ");
-		overdraftTextField = new JTextField(10);
-		overdraftTextField.setText("0.0");
-		overdraftTextField.setEditable(false);
-
-		dataPanel.add(overdraftLabel, "growx, pushx");
-		dataPanel.add(overdraftTextField, "growx, pushx, wrap");
-
-		add(dataPanel, BorderLayout.CENTER);
-
+		createLabelsAndTextFields(comboBox);
+		
 		JPanel buttonPanel = new JPanel(new FlowLayout());
-		JButton addButton = new JButton("Add");
+
+				JButton addButton = new JButton("Add");
 		JButton cancelButton = new JButton("Cancel");
 
 		buttonPanel.add(addButton);
@@ -163,6 +128,56 @@ public class CreateBankDialog extends JFrame {
 		pack();
 		setVisible(true);
 
+	}
+
+	private void createLabelsAndTextFields(JComboBox<String> comboBox) {
+		accountNumberLabel = new JLabel("Account Number: ");
+		accountNumberTextField = new JTextField(8);
+		accountNumberTextField.setEditable(true);
+
+		dataPanel.add(accountNumberLabel, "growx, pushx");
+		dataPanel.add(accountNumberTextField, "growx, pushx, wrap");
+
+		surnameLabel = new JLabel("Last Name: ");
+		surnameTextField = new JTextField(20);
+		surnameTextField.setEditable(true);
+
+		dataPanel.add(surnameLabel, "growx, pushx");
+		dataPanel.add(surnameTextField, "growx, pushx, wrap");
+
+		firstNameLabel = new JLabel("First Name: ");
+		firstNameTextField = new JTextField(20);
+		firstNameTextField.setEditable(true);
+
+		dataPanel.add(firstNameLabel, "growx, pushx");
+		dataPanel.add(firstNameTextField, "growx, pushx, wrap");
+
+		accountTypeLabel = new JLabel("Account Type: ");
+		accountTypeTextField = new JTextField(5);
+		accountTypeTextField.setEditable(true);
+
+		dataPanel.add(accountTypeLabel, "growx, pushx");	
+		dataPanel.add(comboBox, "growx, pushx, wrap");
+
+		balanceLabel = new JLabel("Balance: ");
+		balanceTextField = new JTextField(10);
+		balanceTextField.setText("0.0");
+		balanceTextField.setEditable(false);
+
+		dataPanel.add(balanceLabel, "growx, pushx");
+		dataPanel.add(balanceTextField, "growx, pushx, wrap");
+
+		overdraftLabel = new JLabel("Overdraft: ");
+		overdraftTextField = new JTextField(10);
+		overdraftTextField.setText("0.0");
+		overdraftTextField.setEditable(false);
+
+		dataPanel.add(overdraftLabel, "growx, pushx");
+		dataPanel.add(overdraftTextField, "growx, pushx, wrap");
+
+		add(dataPanel, BorderLayout.CENTER);
+
+	
 	}
 
 	public void put(int key, BankAccount value){
