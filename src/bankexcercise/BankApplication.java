@@ -12,7 +12,7 @@ import net.miginfocom.swing.MigLayout;
 public class BankApplication extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private final static int TABLE_SIZE = 29;
+	final static int TABLE_SIZE = 29;
 
 	private FileHelp fileHelp;
 
@@ -64,6 +64,8 @@ public class BankApplication extends JFrame {
 		createButtons();
 		addActionListeners();
 
+	}
+	private void addActionListeners() {
 		recMenuItems.get("Create Item").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				new CreateBankDialog(table);		
@@ -318,8 +320,6 @@ public class BankApplication extends JFrame {
 			}
 		});
 
-
-
 		closeApp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -332,8 +332,6 @@ public class BankApplication extends JFrame {
 					dispose();
 			}
 		});	
-	}
-	private void addActionListeners() {
 		ActionListener first = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AccountCheck(e);	

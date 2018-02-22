@@ -10,13 +10,13 @@ import net.miginfocom.swing.MigLayout;
 public class CreateBankDialog extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private final static int TABLE_SIZE = 29;
+	
 	private Random rand = new Random();
 
 	private HashMap<Integer, BankAccount> table = new HashMap<Integer, BankAccount>();
 
 	public void put(int key, BankAccount value){
-		int hash = (key%TABLE_SIZE);
+		int hash = (key%BankApplication.TABLE_SIZE);
 
 		while(table.containsKey(key)){
 			hash = hash+1;
@@ -147,7 +147,7 @@ public class CreateBankDialog extends JFrame {
 
 							int key = Integer.parseInt(account.getAccountNumber());
 
-							int hash = (key%TABLE_SIZE);
+							int hash = (key%BankApplication.TABLE_SIZE);
 
 							while(table.containsKey(hash)){
 								hash = hash+1;
