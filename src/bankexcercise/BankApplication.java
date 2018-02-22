@@ -18,6 +18,7 @@ public class BankApplication extends JFrame {
 	private static RandomAccessFile input;
 	private static RandomAccessFile output;
 	private FileHelp fileHelp;
+	private boolean set = false;
 
 	static HashMap<Integer, BankAccount> table = new HashMap<Integer, BankAccount>();
 	private JMenuBar menuBar;
@@ -129,14 +130,10 @@ public class BankApplication extends JFrame {
 
 		recMenuItems.get("Set Overdraft").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if(table.size() ==0) {
-					JOptionPane.showMessageDialog(null, "Empty Set");
-				}
-				else if(table.get(currentItem)==null) {
-					JOptionPane.showMessageDialog(null,"No Account Selected");
-				}
-				else {
-					if(table.get(currentItem).getAccountType().trim().equals("Current")){
+				AccountCheck(e);	
+				if (set == true) {
+					if(table.get(currentItem).getAccountType().trim().equals("Current"))
+					{
 						String newOverdraftStr = JOptionPane.showInputDialog(null, "Enter new Overdraft", JOptionPane.OK_CANCEL_OPTION);
 						fields.get("Overdraft").setText(newOverdraftStr);
 						table.get(currentItem).setOverdraft(Double.parseDouble(newOverdraftStr));
@@ -149,14 +146,8 @@ public class BankApplication extends JFrame {
 
 		ActionListener first = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				if (table.size() ==0) {
-					JOptionPane.showMessageDialog(null, "Empty Set");
-				}
-				else if(table.get(currentItem)==null) {
-					JOptionPane.showMessageDialog(null,"No Account Selected");
-				}
-				else {
+				AccountCheck(e);	
+				if (set == true) {
 					saveOpenValues();
 
 					currentItem=0;
@@ -175,14 +166,10 @@ public class BankApplication extends JFrame {
 				ArrayList<Integer> keyList = new ArrayList<Integer>();
 				int i=0;
 
-				if (table.size() ==0) {
-					JOptionPane.showMessageDialog(null, "Empty Set");
-				}
-				else if(table.get(currentItem)==null) {
-					JOptionPane.showMessageDialog(null,"No Account Selected");
-				}
-				else {
-					while(i<TABLE_SIZE){
+				AccountCheck(e);	
+				if (set == true) {
+					while (i<TABLE_SIZE  ) {
+						//while(){
 						i++;
 						if(table.containsKey(i))
 							keyList.add(i);
@@ -201,21 +188,17 @@ public class BankApplication extends JFrame {
 					displayDetails(currentItem);			
 				}
 			}
+
 		};
 
 		ActionListener prev = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				AccountCheck(e);
 				ArrayList<Integer> keyList = new ArrayList<Integer>();
 				int i=0;
 
-				if (table.size() ==0) {
-					JOptionPane.showMessageDialog(null, "Empty Set");
-				}
-				else if(table.get(currentItem)==null) {
-					JOptionPane.showMessageDialog(null,"No Account Selected");
-				}
-				else {
+				if (set == true) {
 					while(i<TABLE_SIZE){
 						i++;
 						if(table.containsKey(i))
@@ -237,22 +220,15 @@ public class BankApplication extends JFrame {
 
 		ActionListener last = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				AccountCheck(e);
 				saveOpenValues();
 
 				currentItem =TABLE_SIZE;
 
-				if (table.size() ==0) {
-					JOptionPane.showMessageDialog(null, "Empty Set");
-				}
-				else if(table.get(currentItem)==null) {
-					JOptionPane.showMessageDialog(null,"No Account Selected");
-				}
-				else {
+				if (set == true) {
 					while(!table.containsKey(currentItem)){
 						currentItem--;
-
 					}
-
 					displayDetails(currentItem);
 				}
 			}
@@ -272,13 +248,10 @@ public class BankApplication extends JFrame {
 
 		recMenuItems.get("Delete Item").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (table.size() ==0) {
-					JOptionPane.showMessageDialog(null, "Empty Set");
-				}
-				else {
+				AccountCheck(e);	
+				if (set == true) {
 					table.remove(currentItem);
 					JOptionPane.showMessageDialog(null, "Account Deleted");
-
 
 					currentItem=0;
 					while(!table.containsKey(currentItem)){
@@ -295,13 +268,10 @@ public class BankApplication extends JFrame {
 			}
 		});
 
-
 		recMenuItems.get("Modify Item").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (table.size() ==0) {
-					JOptionPane.showMessageDialog(null, "Empty Set");
-				}
-				else {
+				AccountCheck(e);	
+				if (set == true) {
 					fields.get("Last Name").setEditable(true);
 					fields.get("First Name").setEditable(true);
 					openValues = true;
@@ -311,13 +281,8 @@ public class BankApplication extends JFrame {
 
 		recMenuItems.get("Set Interest").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (table.size() ==0) {
-					JOptionPane.showMessageDialog(null, "Empty Set");
-				}
-				else if(table.get(currentItem)==null) {
-					JOptionPane.showMessageDialog(null,"No Account Selected");
-				}
-				else {
+				AccountCheck(e);	
+				if (set == true) {
 					interestRate = Double.parseDouble(JOptionPane.showInputDialog("Enter Interest Rate: (do not type the % sign)"));
 				}
 			}
@@ -390,10 +355,8 @@ public class BankApplication extends JFrame {
 
 		navMenuItems.get("Find By Surname").addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				if(table.size()==0) {
-					JOptionPane.showMessageDialog(null, "Empty Set");
-				}
-				else {
+				AccountCheck(e);	
+				if (set == true) {
 					String sName = JOptionPane.showInputDialog("Search for surname: ");
 					boolean found = false;
 
@@ -421,10 +384,8 @@ public class BankApplication extends JFrame {
 
 		navMenuItems.get("Find By Account Number").addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				if(table.size()==0) {
-					JOptionPane.showMessageDialog(null, "Empty Set");
-				}
-				else {
+				AccountCheck(e);	
+				if (set == true) {
 					String accNum = JOptionPane.showInputDialog("Search for account number: ");
 					boolean found = false;
 
@@ -452,10 +413,8 @@ public class BankApplication extends JFrame {
 		});
 
 		transMenuItems.get("Deposit").addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){
-			if (table.size() ==0) {
-				JOptionPane.showMessageDialog(null, "No accounts to deposit to");
-			}
-			else {
+			AccountCheck(e);	
+			if (set == true) {
 				String accNum = JOptionPane.showInputDialog("Account number to deposit into: ");
 				boolean found = false;
 
@@ -476,12 +435,9 @@ public class BankApplication extends JFrame {
 
 		transMenuItems.get("Withdraw").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (table.size() ==0) {
-					JOptionPane.showMessageDialog(null, "No accounts to withdraw from");
-				}
-				else {
+				AccountCheck(e);	
+				if (set == true) {
 					String accNum = JOptionPane.showInputDialog("Account number to withdraw from: ");
-					//String toWithdraw = JOptionPane.showInputDialog("Account found, Enter Amount to Withdraw: ");
 					boolean found = false;
 
 					for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
@@ -530,6 +486,17 @@ public class BankApplication extends JFrame {
 			}
 		});		
 	}
+
+	private void AccountCheck(ActionEvent e) {
+		if(table.size() ==0) {
+			JOptionPane.showMessageDialog(null, "Empty Set");
+			set = false;
+		}
+		else {
+			set=true;
+		}
+	}
+
 
 	private void setMenuItems(Map<String, JMenuItem> items, JMenu menu, ArrayList<String> menuItems) {
 		menuItems.forEach(item ->{
