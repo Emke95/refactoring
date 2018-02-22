@@ -19,6 +19,7 @@ public class BankApplication extends JFrame {
 	private static RandomAccessFile output;
 	private FileHelp fileHelp;
 	private boolean set = false;
+	private boolean selected = false;
 
 	static HashMap<Integer, BankAccount> table = new HashMap<Integer, BankAccount>();
 	private JMenuBar menuBar;
@@ -130,19 +131,24 @@ public class BankApplication extends JFrame {
 
 		recMenuItems.get("Set Overdraft").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				AccountCheck(e);	
+				AccountCheck(e);
 				if (set == true) {
+					AccountSelected(e);	
+				}
+				if (selected == true) {
 					if(table.get(currentItem).getAccountType().trim().equals("Current"))
 					{
 						String newOverdraftStr = JOptionPane.showInputDialog(null, "Enter new Overdraft", JOptionPane.OK_CANCEL_OPTION);
 						fields.get("Overdraft").setText(newOverdraftStr);
 						table.get(currentItem).setOverdraft(Double.parseDouble(newOverdraftStr));
+
 					}
-					else
+					else 
 						JOptionPane.showMessageDialog(null, "Overdraft only applies to Current Accounts");
+
 				}
-			}
-		});
+
+			}});
 
 		ActionListener first = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -169,7 +175,6 @@ public class BankApplication extends JFrame {
 				AccountCheck(e);	
 				if (set == true) {
 					while (i<TABLE_SIZE  ) {
-						//while(){
 						i++;
 						if(table.containsKey(i))
 							keyList.add(i);
@@ -195,10 +200,14 @@ public class BankApplication extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				AccountCheck(e);
+
 				ArrayList<Integer> keyList = new ArrayList<Integer>();
 				int i=0;
 
 				if (set == true) {
+					AccountSelected(e);	
+				}
+				if (selected == true) {
 					while(i<TABLE_SIZE){
 						i++;
 						if(table.containsKey(i))
@@ -250,6 +259,9 @@ public class BankApplication extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				AccountCheck(e);	
 				if (set == true) {
+					AccountSelected(e);	
+				}
+				if (selected == true) {
 					table.remove(currentItem);
 					JOptionPane.showMessageDialog(null, "Account Deleted");
 
@@ -272,6 +284,9 @@ public class BankApplication extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				AccountCheck(e);	
 				if (set == true) {
+					AccountSelected(e);	
+				}
+				if (selected == true) {
 					fields.get("Last Name").setEditable(true);
 					fields.get("First Name").setEditable(true);
 					openValues = true;
@@ -494,6 +509,16 @@ public class BankApplication extends JFrame {
 		}
 		else {
 			set=true;
+		}
+	}
+
+	private void AccountSelected(ActionEvent e) {
+		if(table.get(currentItem) == null) {
+			JOptionPane.showMessageDialog(null, "No Account Selected");
+			selected = false;
+		}
+		else {
+			selected = true;
 		}
 	}
 
