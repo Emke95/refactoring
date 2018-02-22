@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 public class FileHelp {
 
 	private final static int TABLE_SIZE = 29;
+	private static final long RECORD_SIZE = 140;
+
 	private String fileToSaveAs;
 	private RandomAccessFile input;
 	private RandomAccessFile output;
@@ -107,41 +109,28 @@ public class FileHelp {
 
 		RandomAccessBankAccount record = new RandomAccessBankAccount();
 
-		try // read a record and display
-		{
-			while ( true )
-			{
-				do
-				{
-					if(input!=null)
-						record.read( input );
-				} while ( record.getAccountID() == 0 );
-
-				BankAccount ba = new BankAccount(record.getAccountID(), record.getAccountNumber(), record.getFirstName(),
-						record.getSurname(), record.getAccountType(), record.getBalance(), record.getOverdraft());
-
-				Integer key = Integer.valueOf(ba.getAccountNumber().trim());
-
-				int hash = (key%TABLE_SIZE);
-
-				while(table.containsKey(hash)){
-
-					hash = hash+1;
+		if (input != null) {
+			try {
+				long fileLength = input.length();
+				if (fileLength > 0 && fileLength % RECORD_SIZE == 0) {
+					for (int i = 0; i < fileLength / RECORD_SIZE; i++) {
+						record.read(input);
+						BankAccount ba = new BankAccount(record.getAccountID(), record.getAccountNumber(),
+								record.getFirstName(), record.getSurname(), record.getAccountType(),
+								record.getBalance(), record.getOverdraft());
+						Integer key = Integer.valueOf(ba.getAccountNumber().trim());
+						int hash = (key % TABLE_SIZE);
+						while (table.containsKey(hash)) {
+							hash = hash + 1;
+						}
+						table.put(hash, ba);
+					}
 				}
-
-				table.put(hash, ba);
-
-			} // end while
-		} // end try
-		catch ( EOFException eofException ) // close file
-		{
-			return; // end of file was reached
-		} // end catch
-		catch ( IOException ioException )
-		{
-			JOptionPane.showMessageDialog(null, "Error reading file.");
-			System.exit( 1 );
-		} // end catch
+			} catch (IOException ioException) {
+				JOptionPane.showMessageDialog(null, "Error reading file.");
+				System.exit(1);
+			}
+		}
 	}
 
 	private void saveToFile(HashMap<Integer, BankAccount> table){
