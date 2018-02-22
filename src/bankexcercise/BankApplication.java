@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Map.Entry;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -148,14 +149,8 @@ public class BankApplication extends JFrame {
 
 						if(sName.equalsIgnoreCase((entry.getValue().getSurname().trim()))){
 							found = true;
-							fields.get("Account ID").setText(entry.getValue().getAccountID()+"");
-							fields.get("Account Number").setText(entry.getValue().getAccountNumber());
-							fields.get("Last Name").setText(entry.getValue().getSurname());
-							fields.get("First Name").setText(entry.getValue().getFirstName());
-							fields.get("Account Type").setText(entry.getValue().getAccountType());
-							fields.get("Balance").setText(entry.getValue().getBalance()+"");
-							fields.get("Overdraft").setText(entry.getValue().getOverdraft()+"");
-						}
+							fieldFind(entry);
+							}
 					}		
 					if(found)
 						JOptionPane.showMessageDialog(null, "Surname  " + sName + " found.");
@@ -176,15 +171,7 @@ public class BankApplication extends JFrame {
 
 						if(accNum.equals(entry.getValue().getAccountNumber().trim())){
 							found = true;
-							fields.get("Account ID").setText(entry.getValue().getAccountID()+"");
-							fields.get("Account Number").setText(entry.getValue().getAccountNumber());
-							fields.get("Last Name").setText(entry.getValue().getSurname());
-							fields.get("First Name").setText(entry.getValue().getFirstName());
-							fields.get("Account Type").setText(entry.getValue().getAccountType());
-							fields.get("Balance").setText(entry.getValue().getBalance()+"");
-							fields.get("Overdraft").setText(entry.getValue().getOverdraft()+"");						
-
-						}			 
+							fieldFind(entry);}			 
 					}
 					if(found)
 						JOptionPane.showMessageDialog(null, "Account number " + accNum + " found.");
@@ -546,6 +533,20 @@ public class BankApplication extends JFrame {
 			table.get(currentItem).setFirstName(fields.get("First Name").getText());
 		}
 	}	
+	
+	private void fieldFind(Entry<Integer, BankAccount> entry) {
+		fields.get("Account ID").setText(table.get(currentItem).getAccountID()+"");
+		fields.get("Account Number").setText(table.get(currentItem).getAccountNumber());
+		fields.get("Last Name").setText(table.get(currentItem).getSurname());
+		fields.get("First Name").setText(table.get(currentItem).getFirstName());
+		fields.get("Account Type").setText(table.get(currentItem).getAccountType());
+		fields.get("Balance").setText(table.get(currentItem).getBalance()+"");
+		if(fields.get("Account Type").getText().trim().equals("Current"))
+			fields.get("Overdraft").setText(table.get(currentItem).getOverdraft()+"");
+		else
+			fields.get("Overdraft").setText("Only applies to current accs");
+	
+	}
 
 	public void displayDetails(int currentItem) {	
 		fields.get("Account ID").setText(table.get(currentItem).getAccountID()+"");

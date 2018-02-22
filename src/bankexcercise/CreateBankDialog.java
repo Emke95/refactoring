@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
-
 import net.miginfocom.swing.MigLayout;
 
 public class CreateBankDialog extends JFrame {
