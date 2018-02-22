@@ -15,11 +15,11 @@ public class BankApplication extends JFrame {
 	private final static int TABLE_SIZE = 29;
 
 	private FileHelp fileHelp;
-	
+
 	static String fileToSaveAs = "";
 	private static RandomAccessFile input;
 	private static RandomAccessFile output;
-	
+
 	private boolean set = false;
 	private boolean selected = false;
 
@@ -219,9 +219,6 @@ public class BankApplication extends JFrame {
 			}
 		});
 
-
-
-
 		navMenuItems.get("List All Records").addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 
@@ -371,20 +368,10 @@ public class BankApplication extends JFrame {
 		ActionListener next = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 
-				ArrayList<Integer> keyList = new ArrayList<Integer>();
-				int i=0;
-
 				AccountCheck(e);	
 				if (set == true) {
-					while (i<TABLE_SIZE  ) {
-						i++;
-						if(table.containsKey(i))
-							keyList.add(i);
-					}
-
-					int maxKey = Collections.max(keyList);
-
-					saveOpenValues();	
+					saveOpenValues();
+					int maxKey = Collections.max(navArray());
 
 					if(currentItem<maxKey){
 						currentItem++;
@@ -402,20 +389,13 @@ public class BankApplication extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				AccountCheck(e);
-				ArrayList<Integer> keyList = new ArrayList<Integer>();
-				int i=0;
 
 				if (set == true) {
 					AccountSelected(e);	
 				}
 				if (selected == true) {
-					while(i<TABLE_SIZE){
-						i++;
-						if(table.containsKey(i))
-							keyList.add(i);
-					}
-
-					int minKey = Collections.min(keyList);
+					saveOpenValues();
+					int minKey = Collections.min(navArray());
 
 					if(currentItem>minKey){
 						currentItem--;
@@ -543,6 +523,15 @@ public class BankApplication extends JFrame {
 			items.put(item, new JMenuItem(item));
 			menu.add(items.get(item));
 		});
+	}
+
+	private ArrayList<Integer> navArray(){
+		ArrayList<Integer> keyList = new ArrayList<Integer>();	
+		for(int i = 0; i<TABLE_SIZE; i++){
+			if(table.containsKey(i))
+				keyList.add(i);
+		}
+		return keyList;
 	}
 
 	private void saveOpenValues(){		
