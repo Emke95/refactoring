@@ -24,7 +24,7 @@ public class BankApplication extends JFrame {
 	private boolean set = false;
 	private boolean selected = false;
 
-	static HashMap<Integer, BankAccount> table = new HashMap<Integer, BankAccount>();
+	static HashMap<Integer, BankAccount> table = new HashMap<>();
 	JMenuBar menuBar;
 	private JMenu navigateMenu, recordsMenu, transactionsMenu, fileMenu, exitMenu;
 
