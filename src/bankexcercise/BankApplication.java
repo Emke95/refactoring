@@ -117,11 +117,7 @@ public class BankApplication extends JFrame {
 					table.remove(currentItem);
 					JOptionPane.showMessageDialog(null, "Account Deleted");
 
-					currentItem=0;
-					while(!table.containsKey(currentItem)){
-						currentItem++;
-					}
-					displayDetails(currentItem);
+					displayCurrentItem();
 				}
 			}
 		});
@@ -250,11 +246,7 @@ public class BankApplication extends JFrame {
 		fileMenuItems.get("Open File").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				fileHelp.readFile(table, fc);
-				currentItem=0;
-				while(!table.containsKey(currentItem)){
-					currentItem++;
-				}
-				displayDetails(currentItem);
+				displayCurrentItem();
 			}
 		});
 
@@ -354,20 +346,13 @@ public class BankApplication extends JFrame {
 				AccountCheck(e);	
 				if (set == true) {
 					saveOpenValues();
-
-					currentItem=0;
-					while(!table.containsKey(currentItem)){
-						currentItem++;
-					}
-					displayDetails(currentItem);
-
+					displayCurrentItem();
 				}
 			}
 		};
 
 		ActionListener next = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-
 				AccountCheck(e);	
 				if (set == true) {
 					saveOpenValues();
@@ -382,7 +367,6 @@ public class BankApplication extends JFrame {
 					displayDetails(currentItem);			
 				}
 			}
-
 		};
 
 		ActionListener prev = new ActionListener() {
@@ -449,7 +433,13 @@ public class BankApplication extends JFrame {
 			}
 		});	
 	}
-
+	private void displayCurrentItem() {
+		currentItem=0;
+		while(!table.containsKey(currentItem)){
+			currentItem++;
+		}
+		displayDetails(currentItem);
+	}
 	private void createMenus() {
 		menuBar =  new JMenuBar();
 		setJMenuBar(menuBar);
@@ -574,5 +564,4 @@ public class BankApplication extends JFrame {
 		ba.pack();
 		ba.setVisible(true);
 	}
-
 }
