@@ -14,10 +14,12 @@ public class BankApplication extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private final static int TABLE_SIZE = 29;
 
+	private FileHelp fileHelp;
+	
 	static String fileToSaveAs = "";
 	private static RandomAccessFile input;
 	private static RandomAccessFile output;
-	private FileHelp fileHelp;
+	
 	private boolean set = false;
 	private boolean selected = false;
 
@@ -124,7 +126,6 @@ public class BankApplication extends JFrame {
 			}
 		});
 
-
 		recMenuItems.get("Set Overdraft").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				AccountCheck(e);
@@ -137,11 +138,9 @@ public class BankApplication extends JFrame {
 						String newOverdraftStr = JOptionPane.showInputDialog(null, "Enter new Overdraft", JOptionPane.OK_CANCEL_OPTION);
 						fields.get("Overdraft").setText(newOverdraftStr);
 						table.get(currentItem).setOverdraft(Double.parseDouble(newOverdraftStr));
-
 					}
 					else 
 						JOptionPane.showMessageDialog(null, "Overdraft only applies to Current Accounts");
-
 				}
 
 			}});
@@ -181,7 +180,6 @@ public class BankApplication extends JFrame {
 							fields.get("Account Type").setText(entry.getValue().getAccountType());
 							fields.get("Balance").setText(entry.getValue().getBalance()+"");
 							fields.get("Overdraft").setText(entry.getValue().getOverdraft()+"");
-
 						}
 					}		
 					if(found)
@@ -217,7 +215,6 @@ public class BankApplication extends JFrame {
 						JOptionPane.showMessageDialog(null, "Account number " + accNum + " found.");
 					else
 						JOptionPane.showMessageDialog(null, "Account number " + accNum + " not found.");
-
 				}
 			}
 		});
@@ -239,7 +236,6 @@ public class BankApplication extends JFrame {
 				jTable.setAutoCreateRowSorter(true);
 
 				for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
-
 
 					Object[] objs = {entry.getValue().getAccountID(), entry.getValue().getAccountNumber(), 
 							entry.getValue().getFirstName().trim() + " " + entry.getValue().getSurname().trim(), 
@@ -289,7 +285,6 @@ public class BankApplication extends JFrame {
 						String toDeposit = JOptionPane.showInputDialog("Account found, Enter Amount to Deposit: ");
 						entry.getValue().setBalance(entry.getValue().getBalance() + Double.parseDouble(toDeposit));
 						displayDetails(entry.getKey());
-						//balanceTextField.setText(entry.getValue().getBalance()+"");
 					}
 				}
 				if (!found)
@@ -306,7 +301,6 @@ public class BankApplication extends JFrame {
 					boolean found = false;
 
 					for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
-
 
 						if(accNum.equals(entry.getValue().getAccountNumber().trim())){
 							String toWithdraw = JOptionPane.showInputDialog("Account found, Enter Amount to Withdraw: ");
@@ -583,7 +577,6 @@ public class BankApplication extends JFrame {
 
 		}
 		table.put(hash, value);
-
 	}
 
 	public static void main(String[] args) {
