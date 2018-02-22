@@ -9,26 +9,17 @@ import net.miginfocom.swing.MigLayout;
 public class CreateBankDialog extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Random rand = new Random();
 
 	private HashMap<Integer, BankAccount> table = new HashMap<Integer, BankAccount>();
-
-	public void put(int key, BankAccount value){
-		int hash = (key%BankApplication.TABLE_SIZE);
-
-		while(table.containsKey(key)){
-			hash = hash+1;
-		}
-		table.put(hash, value);
-	}
-
-	// Constructor code based on that for the Create and Edit dialog classes in the Shapes exercise.
 
 	private JLabel accountNumberLabel, firstNameLabel, surnameLabel, accountTypeLabel, balanceLabel, overdraftLabel;
 
 	private JTextField accountNumberTextField;
 	private final JTextField firstNameTextField, surnameTextField, accountTypeTextField, balanceTextField, overdraftTextField;
+	private JButton addButton, cancelButton;
+	private JPanel dataPanel = new JPanel(new MigLayout());
 
 	CreateBankDialog(HashMap<Integer, BankAccount> accounts) {
 
@@ -38,11 +29,8 @@ public class CreateBankDialog extends JFrame {
 
 		setLayout(new BorderLayout());
 
-		JPanel dataPanel = new JPanel(new MigLayout());
-
 		String[] comboTypes = {"Current", "Deposit"};
-
-		final JComboBox<String> comboBox = new JComboBox<String>(comboTypes);
+		JComboBox<String> comboBox = new JComboBox<String>(comboTypes);
 
 		accountNumberLabel = new JLabel("Account Number: ");
 		accountNumberTextField = new JTextField(8);
@@ -176,4 +164,14 @@ public class CreateBankDialog extends JFrame {
 		setVisible(true);
 
 	}
+
+	public void put(int key, BankAccount value){
+		int hash = (key%BankApplication.TABLE_SIZE);
+
+		while(table.containsKey(key)){
+			hash = hash+1;
+		}
+		table.put(hash, value);
+	}
+
 }
