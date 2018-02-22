@@ -150,7 +150,7 @@ public class BankApplication extends JFrame {
 						if(sName.equalsIgnoreCase((entry.getValue().getSurname().trim()))){
 							found = true;
 							fieldFind(entry);
-							}
+						}
 					}		
 					if(found)
 						JOptionPane.showMessageDialog(null, "Surname  " + sName + " found.");
@@ -237,8 +237,8 @@ public class BankApplication extends JFrame {
 				for (Map.Entry<Integer, BankAccount> entry : table.entrySet()) {
 					if(accNum.equals(entry.getValue().getAccountNumber().trim())){
 						found = true;
-						String toDeposit = JOptionPane.showInputDialog("Account found, Enter Amount to Deposit: ");
-						entry.getValue().setBalance(entry.getValue().getBalance() + Double.parseDouble(toDeposit));
+						entry.getValue().setBalance(entry.getValue().getBalance() +
+								Double.parseDouble(JOptionPane.showInputDialog("Account found, Enter Amount to Deposit: ")));
 						displayDetails(entry.getKey());
 					}
 				}
@@ -533,7 +533,7 @@ public class BankApplication extends JFrame {
 			table.get(currentItem).setFirstName(fields.get("First Name").getText());
 		}
 	}	
-	
+
 	private void fieldFind(Entry<Integer, BankAccount> entry) {
 		fields.get("Account ID").setText(table.get(currentItem).getAccountID()+"");
 		fields.get("Account Number").setText(table.get(currentItem).getAccountNumber());
@@ -545,7 +545,7 @@ public class BankApplication extends JFrame {
 			fields.get("Overdraft").setText(table.get(currentItem).getOverdraft()+"");
 		else
 			fields.get("Overdraft").setText("Only applies to current accs");
-	
+
 	}
 
 	public void displayDetails(int currentItem) {	
