@@ -4,7 +4,7 @@ public class BankAccount {
 	private String surname;
 	private String firstName;
 	private BankAccountData data = new BankAccountData();
-	public static int count = 0;
+	public static int COUNT = 0;
 	
 	public BankAccount(int accountID, String accountNumber, String surname, String firstName, String accountType, double balance, double overdraft){
 		this.data.accountID = accountID;

@@ -22,7 +22,7 @@ public class BankApplication extends JFrame {
 	private boolean selected = false;
 
 	static HashMap<Integer, BankAccount> table = new HashMap<Integer, BankAccount>();
-	private JMenuBar menuBar;
+	 JMenuBar menuBar;
 	private JMenu navigateMenu, recordsMenu, transactionsMenu, fileMenu, exitMenu;
 
 	private JMenuItem closeApp;
@@ -56,6 +56,7 @@ public class BankApplication extends JFrame {
 	public void initComponents() {
 		setLayout(new BorderLayout());
 		JPanel displayPanel = new JPanel(new MigLayout());
+		createMenus();
 
 		for (String str: gui) {
 			labels.put(str, new JLabel(str + ": "));
@@ -83,51 +84,6 @@ public class BankApplication extends JFrame {
 		}
 
 		add(buttonPanel, BorderLayout.SOUTH);
-
-		menuBar =  new JMenuBar();
-		setJMenuBar(menuBar);
-
-		navigateMenu = new JMenu("Navigate");
-
-		ArrayList<String> navMenuLabels = new ArrayList<String>(
-				Arrays.asList("Next Item", "Previous Item", "First Item",
-						"Last Item", "Find By Account Number", "Find By Surname", "List All Records"));
-		setMenuItems(navMenuItems, navigateMenu, navMenuLabels);
-
-		menuBar.add(navigateMenu);
-
-		recordsMenu = new JMenu("Records");
-
-		ArrayList<String> recMenuLabels = new ArrayList<String>(
-				Arrays.asList("Create Item", "Modify Item", "Delete Item", "Set Overdraft", "Set Interest"));
-		setMenuItems(recMenuItems, recordsMenu, recMenuLabels);
-
-		menuBar.add(recordsMenu);
-
-		transactionsMenu = new JMenu("Transactions");
-
-		ArrayList<String> transMenuLabels = new ArrayList<String>(
-				Arrays.asList("Deposit","Withdraw","Calculate Interest"));
-		setMenuItems(transMenuItems, transactionsMenu, transMenuLabels);
-
-		menuBar.add(transactionsMenu);
-
-		fileMenu = new JMenu("File");
-
-		ArrayList<String> fileMenuLabels = new ArrayList<String>(Arrays.asList("Open File", "Save File", "Save As"));
-		setMenuItems(fileMenuItems, fileMenu, fileMenuLabels);
-
-		menuBar.add(fileMenu);
-
-		exitMenu = new JMenu("Exit");
-
-		closeApp = new JMenuItem("Close Application");
-
-		exitMenu.add(closeApp);
-
-		menuBar.add(exitMenu);
-
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		recMenuItems.get("Set Overdraft").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -200,7 +156,6 @@ public class BankApplication extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				AccountCheck(e);
-
 				ArrayList<Integer> keyList = new ArrayList<Integer>();
 				int i=0;
 
@@ -502,6 +457,54 @@ public class BankApplication extends JFrame {
 		});		
 	}
 
+	private void createMenus() {
+		menuBar =  new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		navigateMenu = new JMenu("Navigate");
+
+		ArrayList<String> navMenuLabels = new ArrayList<String>(
+				Arrays.asList("Next Item", "Previous Item", "First Item",
+						"Last Item", "Find By Account Number", "Find By Surname", "List All Records"));
+		setMenuItems(navMenuItems, navigateMenu, navMenuLabels);
+
+		menuBar.add(navigateMenu);
+
+		recordsMenu = new JMenu("Records");
+
+		ArrayList<String> recMenuLabels = new ArrayList<String>(
+				Arrays.asList("Create Item", "Modify Item", "Delete Item", "Set Overdraft", "Set Interest"));
+		setMenuItems(recMenuItems, recordsMenu, recMenuLabels);
+
+		menuBar.add(recordsMenu);
+
+		transactionsMenu = new JMenu("Transactions");
+
+		ArrayList<String> transMenuLabels = new ArrayList<String>(
+				Arrays.asList("Deposit","Withdraw","Calculate Interest"));
+		setMenuItems(transMenuItems, transactionsMenu, transMenuLabels);
+
+		menuBar.add(transactionsMenu);
+
+		fileMenu = new JMenu("File");
+
+		ArrayList<String> fileMenuLabels = new ArrayList<String>(Arrays.asList("Open File", "Save File", "Save As"));
+		setMenuItems(fileMenuItems, fileMenu, fileMenuLabels);
+
+		menuBar.add(fileMenu);
+
+		exitMenu = new JMenu("Exit");
+
+		closeApp = new JMenuItem("Close Application");
+
+		exitMenu.add(closeApp);
+
+		menuBar.add(exitMenu);
+
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+	}
+
 	private void AccountCheck(ActionEvent e) {
 		if(table.size() ==0) {
 			JOptionPane.showMessageDialog(null, "Empty Set");
@@ -552,7 +555,6 @@ public class BankApplication extends JFrame {
 
 		else
 			fields.get("Overdraft").setText("Only applies to current accs");
-
 	}
 
 	public void put(int key, BankAccount value){
