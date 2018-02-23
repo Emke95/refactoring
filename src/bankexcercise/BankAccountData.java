@@ -7,6 +7,4 @@ public class BankAccountData {
 	public double balance;
 	public double overdraft;
 
-	public BankAccountData() {
-	}
 }

@@ -301,13 +301,19 @@ public class BankApplication extends JFrame {
 
 		fileMenuItems.get("Save File").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				fileHelp.writeFile(table,fc);
+				AccountCheck(e);
+				if (set == true) {
+					fileHelp.writeFile(table,fc);
+				}
 			}
 		});
 
 		fileMenuItems.get("Save As").addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				fileHelp.saveFileAs(table,fc);
+				AccountCheck(e);
+				if (set == true) {
+					fileHelp.saveFileAs(table,fc);
+				}
 			}
 		});
 
